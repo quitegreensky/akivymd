@@ -2,8 +2,6 @@
 
 Awesome KivyMD is a package containing customized and non-material widgets for KivyMD.
 
-![alt text](http://url/to/img.png)
-
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install package:
@@ -19,7 +17,7 @@ requirements =  kivy,kivymd, git+https://github.com/quitegreensky/akivymd.git
 
 ## Usage
 
-You can find usage examples in the demo app
+You can find usage examples in the demo app.
  
 ## Contributing
 
