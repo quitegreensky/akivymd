@@ -34,7 +34,7 @@ Builder.load_string(
 
         MDIcon:     
             id: _box
-            pos_hint: {'center_x': 1 , 'center_y': 1}
+            pos_hint: {'center_x': 0.9 , 'center_y': 0.9}
             size_hint: None,None
             font_size: 0
             icon: 'check-circle'
@@ -88,7 +88,7 @@ class AKSelectListAvatarItem(ThemableBehavior,ButtonBehavior,CircularRippleBehav
         self.parent._selected_list = selected_list
     
     def _selection_anim(self):
-            anim = Animation(font_size=45 , t='out_bounce' , duration=0.1) 
+            anim = Animation(font_size=self.width/3 , t='out_bounce' , duration=0.1) 
             anim.start(self.ids._box)
 
     def _deselection_anim(self):
