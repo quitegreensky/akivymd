@@ -6,8 +6,6 @@ Builder.load_string(
     """
 <Selectionlist>:
     name: 'Selectionlist'
-    on_leave: 
-        # root.stop_animation()
 
     BoxLayout:
         orientation: 'vertical'
@@ -44,7 +42,7 @@ class Selectionlist(Screen):
             self.ids.selectionlist.add_widget(AKSelectListAvatarItem(
                 first_label= 'Item %d'%x,
                 second_label= 'Description for item %d'%x,
-                source= 'assets\logo.png'
+                source= 'assets/logo.png'
             ))
 
     def on_leave(self):
