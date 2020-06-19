@@ -39,6 +39,7 @@ pip-delete-this-directory.txt
 .vscode
 .ipynb_checkpoints
 *.swp
+*.code-workspace
 
 # Environments
 venv
