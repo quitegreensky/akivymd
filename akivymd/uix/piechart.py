@@ -12,6 +12,7 @@ from kivy.animation import Animation
 from kivymd.uix.label import MDLabel
 from akivymd.helper import point_on_circle
 from kivy.core.window import Window 
+from kivy.metrics import dp
 
 '''issues
 color_mode
@@ -42,6 +43,11 @@ class PieChartNumberLabel(MDLabel):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        Clock.schedule_once(lambda x: self._update())
+    
+    def _update(self):
+        self.x -= self.width/2
+        self.y -= self.height/2
 
 class AKPieChart(ThemableBehavior, FloatLayout):
     chart_size= NumericProperty(100)
@@ -95,7 +101,6 @@ class AKPieChart(ThemableBehavior, FloatLayout):
         return new_items
 
     def _make_chart(self,items):
-        self.size= [self.chart_size, self.chart_size]
         if not items:
             raise Exception('Items cannot be empty.') 
 
@@ -136,7 +141,7 @@ class AKPieChart(ThemableBehavior, FloatLayout):
         for title,value in items.items():
             with self.canvas.after:
                 label_pos= point_on_circle( (angle_start+angle_start+value)/2 , circle_center, self.size[0]/3 )
-                l= PieChartNumberLabel( pos=label_pos, title=title)
+                l= PieChartNumberLabel( x=label_pos[0], y= label_pos[1] , title=title)
                 anim_label= Animation(percent=value*100/360)
                 anim_label.start(l)
             angle_start+= value

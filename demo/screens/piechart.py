@@ -5,7 +5,7 @@ from kivy.uix.screenmanager import Screen
 Builder.load_string(
     """
 <Piechart>:
-    # on_leave: root.clear_data()
+    on_leave: root.remove_chart()
     name: 'Piechart'
     BoxLayout:
         orientation: 'vertical'
@@ -44,7 +44,7 @@ class Piechart(Screen):
 
     def on_enter(self):
         self.piechart= AKPieChart(
-            items= self.items, pos_hint= {'center_x': .5, 'center_y': .5},chart_size= 400
+            items= self.items, pos_hint= {'center_x': .5, 'center_y': .5},chart_size= self.width*0.7,
         )
         self.ids.chart_box.add_widget(self.piechart)
 
@@ -52,3 +52,6 @@ class Piechart(Screen):
         self.piechart.items= items= [
         {'Python': 70 , 'Dart': 10, 'C#': 10, 'Css': 10}
     ] 
+
+    def remove_chart(self):
+        self.ids.chart_box.remove_widget(self.piechart)
