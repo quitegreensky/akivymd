@@ -2,6 +2,7 @@ from akivymd.uix.selectionlist import AKSelectList,AKSelectListAvatarItem
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
+
 Builder.load_string(
     """
 <Selectionlist>:
@@ -12,7 +13,7 @@ Builder.load_string(
         MDToolbar:
             title: root.name
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
-        
+
         ScrollView:
             AKSelectList:
                 id: selectionlist
