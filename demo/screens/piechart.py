@@ -1,6 +1,7 @@
 from kivy.lang.builder import Builder
 from akivymd.uix.piechart import AKPieChart
 from kivy.uix.screenmanager import Screen
+from kivy.metrics import dp
 
 Builder.load_string(
     """
@@ -14,14 +15,11 @@ Builder.load_string(
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
         ScrollView:
             MDBoxLayout:
+                id: chart_box
                 adaptive_height: True
                 spacing: dp(5)
                 padding:dp(5)
                 orientation: 'vertical'
-                FloatLayout:
-                    id: chart_box
-                    size_hint_y: None
-                    height: dp(400)
 
         MDBoxLayout:
             adaptive_height: True
@@ -44,7 +42,9 @@ class Piechart(Screen):
 
     def on_enter(self):
         self.piechart= AKPieChart(
-            items= self.items, pos_hint= {'center_x': .5, 'center_y': .5},chart_size= self.width*0.7,
+            items= self.items,pos_hint= {'center_x': 0.5, 'center_y': .5} , 
+            size_hint=[None,None], 
+            size=(dp(300),dp(300))
         )
         self.ids.chart_box.add_widget(self.piechart)
 

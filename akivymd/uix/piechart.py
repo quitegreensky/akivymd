@@ -1,7 +1,6 @@
 from kivy.lang.builder import Builder
 from kivymd.app import MDApp
-# from kivy.uix.widget import Widget
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import ListProperty, NumericProperty,StringProperty,BooleanProperty,OptionProperty
 from kivy.clock import Clock
 from kivy.graphics import Ellipse, Color, Rotate, PushMatrix,PopMatrix
@@ -12,7 +11,6 @@ from kivy.animation import Animation
 from kivymd.uix.label import MDLabel
 from akivymd.helper import point_on_circle
 from kivy.core.window import Window 
-from kivy.metrics import dp
 
 '''issues
 color_mode
@@ -32,7 +30,6 @@ Builder.load_string(
     text_color: 1,1,1,1
 
 <AKPieChart>:
-    size_hint: None,None  
 
     """
 )
@@ -49,8 +46,7 @@ class PieChartNumberLabel(MDLabel):
         self.x -= self.width/2
         self.y -= self.height/2
 
-class AKPieChart(ThemableBehavior, FloatLayout):
-    chart_size= NumericProperty(100)
+class AKPieChart(ThemableBehavior, BoxLayout):
     items= ListProperty()
     order= BooleanProperty(True)
     starting_animation= BooleanProperty(True)
@@ -58,30 +54,8 @@ class AKPieChart(ThemableBehavior, FloatLayout):
     duration= NumericProperty(1)
     color_mode= OptionProperty('colors', options=['primary_color', 'accent_color']) # not solved 
 
-    _pushed= False
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Window.bind(on_resize=self._on_resize)
-
-    def _set_pos(self):
-        if not self.pos_hint:
-            return
-        parent_size = self.parent.size 
-        pos_hint = self.pos_hint
-        for k,v in pos_hint.items():
-            if k=='x':
-                parent_size=[parent_size[0]*v, parent_size[1] ]
-            elif k=='center_x':
-                parent_size=[parent_size[0]*v-self.size[0]/2, parent_size[1] ]
-            elif k=='right':
-                parent_size=[parent_size[0]*v-self.size[0], parent_size[1] ]
-            elif k=='y':
-                parent_size=[parent_size[0], parent_size[1]*v ]
-            elif k=='center_y':
-                parent_size=[parent_size[0], parent_size[1]*v-self.size[1]/2 ]
-            elif k=='bottom':
-                parent_size=[parent_size[0], parent_size[1]*v-self.size[1] ]
-            self.pos = parent_size
             
     def _format_items(self,items):
         percentage_sum= 0
@@ -101,12 +75,11 @@ class AKPieChart(ThemableBehavior, FloatLayout):
         return new_items
 
     def _make_chart(self,items):
+        self.size= (min(self.size) , min(self.size))
         if not items:
             raise Exception('Items cannot be empty.') 
 
         items= self._format_items(items)
-        self._set_pos()
-
         angle_start=0
         color_item= 0
         i= 1
@@ -152,12 +125,12 @@ class AKPieChart(ThemableBehavior, FloatLayout):
             self.canvas.after.clear()
         except:
             pass 
-
-    def on_items(self,*args):
+    
+    def on_pos(self,*args):
         self._clear_canvas()
-        Clock.schedule_once(lambda x:self._make_chart(self.items), 0.1 )
+        Clock.schedule_once(lambda x:self._make_chart(self.items) )
 
-    def _on_resize(self,instance , width , height):
-        self._set_pos()
+    def on_items(self, *args):
         self._clear_canvas()
-        Clock.schedule_once(lambda x:self._make_chart(self.items), 0.1 )
+        Clock.schedule_once(lambda x:self._make_chart(self.items) )
+        
