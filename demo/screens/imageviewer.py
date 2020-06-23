@@ -5,7 +5,6 @@ from kivy.uix.screenmanager import Screen
 Builder.load_string(
     """
 <ImageViewer>:
-    on_leave: root.remove_chart()
     name: 'ImageViewer'
     BoxLayout:
         orientation: 'vertical'
