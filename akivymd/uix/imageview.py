@@ -128,6 +128,11 @@ class AKImageViewer(BaseDialog):
         else:
             self.carousel.load_next(mode='next')
 
+    def on_dismiss(self):
+        self.carousel.load_slide(self.carousel.slides[0])
+        self.carousel.current_slide.reset_min_zoom()
+        self.carousel.current_slide.reset_position()
+
     def _previous_slide(self):
         if len(self.carousel.slides)==0:
             return
