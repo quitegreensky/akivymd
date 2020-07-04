@@ -5,6 +5,7 @@ from kivymd.theming import ThemableBehavior
 from kivy.properties import ObjectProperty, NumericProperty, StringProperty, BooleanProperty
 from kivy.uix.scatter import Scatter
 from kivy.animation import Animation
+from kivy.metrics import dp 
 
 Builder.load_string(
     '''
@@ -49,8 +50,9 @@ Builder.load_string(
             size_hint: None,None
             size: _mainbox.size[0]-2*_left_button.size[0], _mainbox.size[1]
             pos_hint: {'center_x': .5 , 'center_y': .5}
-            scroll_distance: dp(1000000000)
+            scroll_distance: dp(9999)
             min_move: 0
+            
     '''
 )
 
