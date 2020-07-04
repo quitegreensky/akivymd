@@ -4,7 +4,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.carousel import Carousel
 from kivy.uix.widget import Widget
 from kivymd.theming import ThemableBehavior
-from kivy.properties import  NumericProperty, BooleanProperty
+from kivy.properties import  NumericProperty, BooleanProperty, StringProperty, ListProperty
 from kivy.core.window import Window 
 from kivy.animation import Animation
 from kivy.event import EventDispatcher
@@ -12,20 +12,20 @@ from kivy.metrics import dp
 
 Builder.load_string(
     """
-<GhostCircle>:
-    size_hint: None, None 
-    canvas.before:
-        Color:
-            rgba: root.theme_cls.primary_color
-        Ellipse:  
-            pos: self.pos
-            size: self.size 
+# <GhostCircle>:
+#     size_hint: None, None 
+#     canvas.before:
+#         Color:
+#             rgba: root.parent.parent.circles_color if root.parent.parent.circles_color else root.theme_cls.primary_color
+#         Ellipse:  
+#             pos: self.pos
+#             size: self.size 
 
 <ItemCircles>:
     size_hint_x: None 
     canvas.before:
         Color:
-            rgba: root.theme_cls.primary_color
+            rgba: root._circles_color
         Line:  
             circle: [ self.pos[0]+self.width/2, self.pos[1]+self.height/2, self.width/2]
             width: dp(1)
@@ -36,7 +36,9 @@ Builder.load_string(
     orientation: 'vertical'
 
     MyCarousel:
-        min_move: 0.05
+        min_move:root.min_move
+        anim_type: root.anim_type
+        anim_move_duration: root.anim_move_duration
         id: carousel
 
     FloatLayout:
@@ -45,14 +47,22 @@ Builder.load_string(
         height: circles_box.y+ circles_box.height*2
         canvas.before:
             Color:
-                rgba: app.theme_cls.bg_dark
+                rgba: root.bottom_bar_color if root.bottom_bar_color else app.theme_cls.bg_dark
+                a: 1 if root.show_bottom_bar else 0
             RoundedRectangle:
                 pos: self.pos
                 size: self.size   
-                radius: [dp(20), dp(20),0 ,0]
+                radius: root.bottom_bar_radius
 
-        GhostCircle:
+        Widget:
             id: ghost_circle     
+            size_hint: None, None 
+            canvas.before:
+                Color:
+                    rgba: root.circles_color if root.circles_color else root.theme_cls.primary_color
+                Ellipse:  
+                    pos: self.pos
+                    size: self.size 
 
         BoxLayout:
             id: circles_box
@@ -72,14 +82,17 @@ Builder.load_string(
     """
 )
 
-class GhostCircle(ThemableBehavior, Widget):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs) 
+# class GhostCircle(ThemableBehavior, Widget):
+#     def __init__(self, **kwargs):
+#         super().__init__(**kwargs) 
 
 class ItemCircles(ThemableBehavior, Widget):
-    pass 
+    _circles_color= ListProperty(None) 
 
-class MyCarousel(Carousel):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+class MyCarousel(ThemableBehavior,Carousel):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -89,8 +102,13 @@ class MyCarousel(Carousel):
     def _add_circles(self):
         self.total_circles= len(self.slides)-1
 
+        if self.parent.circles_color:
+            circle_color= self.parent.circles_color
+        else:
+            circle_color= self.theme_cls.primary_color
+
         for _ in range(self.total_circles+1):
-            self.parent.ids.circles_box.add_widget(ItemCircles(width= self.parent.circles_size))
+            self.parent.ids.circles_box.add_widget(ItemCircles(width= self.parent.circles_size, _circles_color=circle_color))
 
         self._current_circle= self.total_circles
         Clock.schedule_once(lambda x: self._set_current_circle(animation=False))
@@ -143,8 +161,16 @@ class AKOnboardingItem(BoxLayout):
     pass 
 
 class AKOnboarding(ThemableBehavior,BoxLayout,EventDispatcher):
+    
     circles_size= NumericProperty(dp(20))
     skip_button= BooleanProperty(True)
+    min_move= NumericProperty(0.05)
+    anim_type= StringProperty('out_quad')
+    anim_move_duration= NumericProperty(0.2)
+    bottom_bar_radius= ListProperty([dp(20), dp(20),0 ,0])
+    show_bottom_bar= BooleanProperty(True)
+    bottom_bar_color= ListProperty(None)
+    circles_color= ListProperty(None)
 
     def __init__(self, **kwargs):
         super(AKOnboarding, self).__init__(**kwargs)
@@ -171,29 +197,3 @@ class AKOnboarding(ThemableBehavior,BoxLayout,EventDispatcher):
 
     def _update(self):
         self.ids.ghost_circle.size= [self.circles_size, self.circles_size]
-
-#####################
-# from kivymd.app import MDApp
-
-# kv= """
-
-# <MyItem@AKOnboardingItem>:
-#     MDRaisedButton:
-#         text: 'ssdfd'
-
-# Screen:
-#     AKOnboarding:
-#         on_finish: print('-------------')
-#         MyItem:
-#         MyItem:
-
-# """
-
-
-# class Main(MDApp):
-
-#     def build(self):
-#         self.main= Builder.load_string(kv) 
-#         return self.main
-
-# Main().run()
