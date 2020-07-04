@@ -12,15 +12,6 @@ from kivy.metrics import dp
 
 Builder.load_string(
     """
-# <GhostCircle>:
-#     size_hint: None, None 
-#     canvas.before:
-#         Color:
-#             rgba: root.parent.parent.circles_color if root.parent.parent.circles_color else root.theme_cls.primary_color
-#         Ellipse:  
-#             pos: self.pos
-#             size: self.size 
-
 <ItemCircles>:
     size_hint_x: None 
     canvas.before:
@@ -76,15 +67,12 @@ Builder.load_string(
             on_release: root._on_finish_dispatch()
             disabled: False if root.skip_button else True
             opacity: 1 if root.skip_button else 0
-            text_color: root.theme_cls.primary_color
+            text_color: root.circles_color if root.circles_color else root.theme_cls.primary_color
             pos_hint: {'right': .95, 'center_y': .5}
 
     """
 )
 
-# class GhostCircle(ThemableBehavior, Widget):
-#     def __init__(self, **kwargs):
-#         super().__init__(**kwargs) 
 
 class ItemCircles(ThemableBehavior, Widget):
     _circles_color= ListProperty(None) 
@@ -161,7 +149,7 @@ class AKOnboardingItem(BoxLayout):
     pass 
 
 class AKOnboarding(ThemableBehavior,BoxLayout,EventDispatcher):
-    
+
     circles_size= NumericProperty(dp(20))
     skip_button= BooleanProperty(True)
     min_move= NumericProperty(0.05)
