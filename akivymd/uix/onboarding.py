@@ -36,6 +36,7 @@ Builder.load_string(
     orientation: 'vertical'
 
     MyCarousel:
+        min_move: 0.05
         id: carousel
 
     FloatLayout:
