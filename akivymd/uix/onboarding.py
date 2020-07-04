@@ -102,7 +102,7 @@ class MyCarousel(Carousel):
     def reset(self):
         self._current_circle= self.total_circles
         self._set_current_circle()
-        self.load_slide(self.slides[self.total_circles])
+        self.load_slide(self.slides[0])
 
     def _set_current_circle(self, mode=None, animation=True):
         if mode=='next':
