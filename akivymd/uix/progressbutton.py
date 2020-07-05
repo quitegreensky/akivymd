@@ -41,16 +41,14 @@ Builder.load_string(
         BoxLayout: ## Success
             id: _success_box
             pos_hint: {'center_x': .5, 'center_y': .5}
-            _success_opacity: 0
-            _success_box_size:[100,100]
 
             canvas.before:
                 Color:
                     rgba: root.success_color
-                    a: self._success_opacity
+                    a: root._success_opacity
                 RoundedRectangle:
-                    size: self._success_box_size
-                    pos: [ self.x+self.width/2-self._success_box_size[0]/2 , self.y ]
+                    size: root._success_box_size
+                    pos: [ self.x+self.width/2-root._success_box_size[0]/2 , self.y ]
                     radius: [self.height / 2]
 
             Message_label:
@@ -62,16 +60,14 @@ Builder.load_string(
         BoxLayout: ## Failure
             id: _failure_box
             pos_hint: {'center_x': .5, 'center_y': .5}
-            _failure_opacity: 0
-            _failure_box_size:[0,0]
 
             canvas.before:
                 Color:
                     rgba: root.failure_color
-                    a: self._failure_opacity
+                    a: root._failure_opacity
                 RoundedRectangle:
-                    size: self._failure_box_size
-                    pos: [ self.x+self.width/2-self._failure_box_size[0]/2 , self.y ]
+                    size: root._failure_box_size
+                    pos: [ self.x+self.width/2-root._failure_box_size[0]/2 , self.y ]
                     radius: [self.height / 2]
 
             Message_label:
@@ -94,6 +90,11 @@ class AKProgressbutton(BoxLayout):
 
     duration= NumericProperty(0.2)
     animation = StringProperty('out_quad')
+
+    _success_box_size= ListProperty([0,0])
+    _failure_box_size= ListProperty([0,0])
+    _success_opacity= NumericProperty(0)
+    _failure_opacity=NumericProperty(0)
 
     reset_timeout= NumericProperty(2)
 
@@ -122,8 +123,8 @@ class AKProgressbutton(BoxLayout):
         self.ids.float_box.size = self.button.size
         self.spinner.spinner_size= self.button.height
 
-        self.ids._success_box._success_box_size= [0,self.button.height ]
-        self.ids._failure_box._failure_box_size= [0,self.button.height ]
+        self._success_box_size= [0,self.button.height ]
+        self._failure_box_size= [0,self.button.height ]
 
     def _spinner_state(self,state):
         self.spinner.active= state
@@ -142,7 +143,7 @@ class AKProgressbutton(BoxLayout):
         anim_box = Animation(_success_opacity=1,_success_box_size=self.button.size, duration=self.duration, t=self.animation)
         anim_label = Animation(opacity=1, duration=self.duration, t=self.animation)
         
-        anim_box.start(self.ids._success_box)
+        anim_box.start(self)
         anim_label.start(self.ids._success_label)
 
         Clock.schedule_once(lambda x: self._reset(), self.reset_timeout+self.duration)
@@ -152,7 +153,7 @@ class AKProgressbutton(BoxLayout):
         anim_box = Animation(_failure_opacity=1,_failure_box_size=self.button.size, duration=self.duration, t=self.animation)
         anim_label = Animation(opacity=1, duration=self.duration, t=self.animation)
         
-        anim_box.start(self.ids._failure_box)
+        anim_box.start(self)
         anim_label.start(self.ids._failure_label)
 
         Clock.schedule_once(lambda x: self._reset(), self.reset_timeout+self.duration)
@@ -169,7 +170,7 @@ class AKProgressbutton(BoxLayout):
         failure_label = Animation(opacity=0, duration=self.duration, t=self.animation)
         
         button_anim.start(self.button )
-        success_box.start(self.ids._success_box)
+        success_box.start(self)
         success_label.start(self.ids._success_label)
-        failure_box.start(self.ids._failure_box)
+        failure_box.start(self)
         failure_label.start(self.ids._failure_label)
