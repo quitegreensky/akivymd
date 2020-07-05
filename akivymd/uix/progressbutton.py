@@ -42,7 +42,7 @@ Builder.load_string(
             id: _success_box
             pos_hint: {'center_x': .5, 'center_y': .5}
             _success_opacity: 0
-            _success_box_size:[0,0]
+            _success_box_size:[100,100]
 
             canvas.before:
                 Color:
