@@ -10,7 +10,7 @@ from kivy.animation import Animation
 Builder.load_string(
     """
 #:import ScrollEffect kivy.effects.scroll.ScrollEffect
-<AKSrollToolbarContent>
+<AKSilverAppbarContent>
     canvas.before:
         Color: 
             rgba: root.md_bg_color if root.md_bg_color else root.theme_cls.bg_normal
@@ -19,7 +19,7 @@ Builder.load_string(
             size : self.size 
             radius: [root.parent.parent.parent.parent.radius, root.parent.parent.parent.parent.radius, 0,0]
 
-<AKScrollToolbar>
+<AKSilverAppbar>
 
     FloatLayout:
         id: float_box    
@@ -61,10 +61,10 @@ Builder.load_string(
     """
 )
 
-class AKSrollToolbarContent(ThemableBehavior, BoxLayout):
+class AKSilverAppbarContent(ThemableBehavior, BoxLayout):
     md_bg_color= ListProperty() 
 
-class AKScrollViewHeader(BoxLayout):
+class AKSilverAppbarHeader(BoxLayout):
     pass 
 
 class NewScrollView(ScrollView):
@@ -99,7 +99,7 @@ class NewScrollView(ScrollView):
     def _update(self):
         self.root= self.parent.parent
         
-class AKScrollToolbar(ThemableBehavior, BoxLayout):
+class AKSilverAppbar(ThemableBehavior, BoxLayout):
 
     max_height= NumericProperty(300) 
     left_action_items= ListProperty()
@@ -119,9 +119,9 @@ class AKScrollToolbar(ThemableBehavior, BoxLayout):
 
     def add_widget(self, widget, index=0, canvas=None):
 
-        if issubclass(widget.__class__, AKSrollToolbarContent):
+        if issubclass(widget.__class__, AKSilverAppbarContent):
             self.ids.scroll_box.add_widget(widget)
-        elif issubclass(widget.__class__, AKScrollViewHeader):
+        elif issubclass(widget.__class__, AKSilverAppbarHeader):
             self.ids.header.add_widget(widget)
         else:
             super().add_widget(widget, index=index, canvas=canvas)

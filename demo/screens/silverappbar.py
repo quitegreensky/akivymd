@@ -1,14 +1,14 @@
-from akivymd.uix.scrolltoolbar import AKScrollToolbar,AKScrollViewHeader,AKSrollToolbarContent
+from akivymd.uix.silverappbar import AKSilverAppbar,AKSilverAppbarContent, AKSilverAppbarHeader
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.list import OneLineListItem
 
 Builder.load_string(
     """
-<ScrollToolbar>:
-    name: 'ScrollToolbar'
+<SilverAppbar>:
+    name: 'SilverAppbar'
 
-    AKScrollToolbar:
+    AKSilverAppbar:
         max_height: dp(300)
         title: root.name
         left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
@@ -17,14 +17,14 @@ Builder.load_string(
         radius: dp(20)
         toolbar_bg: app.theme_cls.primary_color
         
-        AKScrollViewHeader:     
+        AKSilverAppbarHeader:     
             orientation: 'vertical'     
             Image:
                 source: 'assets/fly.jpg'
                 allow_stretch: True 
                 keep_ratio: False
 
-        AKSrollToolbarContent:
+        AKSilverAppbarContent:
             padding: dp(10)
             id: content
             size_hint_y: None 
@@ -35,7 +35,7 @@ Builder.load_string(
 """
 )
 
-class ScrollToolbar(Screen):
+class SilverAppbar(Screen):
 
     def on_enter(self, *args):
         
