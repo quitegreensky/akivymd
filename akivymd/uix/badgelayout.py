@@ -13,6 +13,8 @@ Builder.load_string(
     size_hint: None,None 
     padding: dp(5)
     size: self.size if root.text else [dp(20), dp(20)]
+    opacity: 1 if self.disabled==False else 0
+
     pos: 
         (self.parent.x  -self.width*(root.offset), self.parent.y+ self.parent.height  -self.height*(1-root.offset)) if root.position=='left'\
         else (self.parent.x +self.parent.width -self.width*(1-root.offset) , self.parent.y +self.parent.height -self.height*(1-root.offset)) 
@@ -47,7 +49,6 @@ Builder.load_string(
 
     size_hint: None,None 
     size: box.size 
-    
     BadgeContent:
         id: box
         pos: root.pos  
@@ -65,6 +66,7 @@ Builder.load_string(
         text: root.text
         bold: root.bold
         offset: root.offset
+        disabled: root.disabled
 
     """
 )
@@ -80,6 +82,7 @@ class BadgeItem(ThemableBehavior, BoxLayout):
     text= StringProperty('')
     bold= BooleanProperty()
     offset= NumericProperty()
+    disabled= BooleanProperty(False)
         
 class AKBadgeLayout(FloatLayout):
     badgeitem_size= NumericProperty(dp(20))  
@@ -90,6 +93,7 @@ class AKBadgeLayout(FloatLayout):
     text= StringProperty('')
     bold= BooleanProperty(False)
     offset= NumericProperty(0.25)
+    disabled= BooleanProperty(False)
 
     def add_widget(self, widget, index=0, canvas=None):
 
