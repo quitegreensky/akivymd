@@ -4,7 +4,9 @@ from kivy.factory import Factory
 from kivy.properties import StringProperty
 from kivymd.uix.list import OneLineAvatarListItem
 ##
-from screens import bottomnavigation,spinners, dataloader, selectionlist, piechart, imageviewer, onboarding,progressbutton,silverappbar
+from screens import bottomnavigation,spinners, dataloader, selectionlist, piechart,\
+imageviewer, onboarding,progressbutton,silverappbar,badgelayout
+
 kv='''
 <MyMenuItem@OneLineAvatarListItem>
     IconLeftWidget:
@@ -45,7 +47,7 @@ class DemoApp(MDApp):
 
     screens=[
         'BottomNavigation','Spinners','Dataloader', 'Selectionlist','Piechart','ImageViewer',
-        'Onboarding','ProgressButton','SilverAppbar',
+        'Onboarding','ProgressButton','SilverAppbar','BadgeLayout'
     ]
     intro= """here is where you can find all of the widgets. take a look at screens folder to find exmples of how to use them. I will gradually add more and more Awesome widets to this project. Stay tuned!"""
 
