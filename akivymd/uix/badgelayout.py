@@ -37,7 +37,7 @@ Builder.load_string(
         size: self.texture_size[0]+dp(10), self.texture_size[1]
         halign: 'center'
         valign: 'center'
-        font_size: 13
+        font_size: dp(13)
         bold: root.bold
         pos_hint: {'center_x': .5, 'center_y': .5}
         text: root.text
