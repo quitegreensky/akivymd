@@ -24,13 +24,15 @@ class AKAddWidgetAnimationBehavior:
                         current_width= x.width
                         x.size_hint_x= None 
                         x.width= current_width/2
-                        anim= Animation(opacity=1, width= current_width, duration= self.animation_duration, t= self.animation)
+                        anim= Animation(width= current_width, duration= self.animation_duration, t= self.animation)
+                        anim &= Animation(opacity=1, duration= self.animation_duration*3, t= self.animation)
 
                     elif self.direction=='vertical':
                         current_height= x.height
                         x.size_hint_y= None 
                         x.height= current_height/2
-                        anim= Animation(opacity=1, height= current_height, duration= self.animation_duration, t= self.animation)
+                        anim= Animation(height= current_height, duration= self.animation_duration, t= self.animation)
+                        anim &= Animation(opacity=1, duration= self.animation_duration*3, t= self.animation)
        
                 anim.start(x)
                 self.add_widget(x)
