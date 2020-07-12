@@ -56,7 +56,7 @@ Builder.load_string(
             title: root.title
             anchor_title: root.anchor_title
             md_bg_color: root.toolbar_bg if root.toolbar_bg else root.theme_cls.primary_color
-            elevation: root.elevation
+            elevation: 0.01 if root.elevation==0 else root.elevation
 
     """
 )
@@ -89,6 +89,8 @@ class NewScrollView(ScrollView):
                     self.root.ids.toolbar.opacity= opacity
                 else:
                     self.root.toolbar_bg= self.root.toolbar_bg[0:3]+[1-opacity]
+                    self.root.ids.toolbar._hard_shadow_a= 1-opacity
+                    self.root.ids.toolbar._soft_shadow_a= 1-opacity
 
             else:
                 if not self.root.pin_top:
@@ -109,7 +111,7 @@ class AKSilverAppbar(ThemableBehavior, BoxLayout):
     anchor_title = StringProperty("left")
     pin_top= BooleanProperty(True)
     hide_toolbar= BooleanProperty(True)
-    elevation= NumericProperty(0)
+    elevation= NumericProperty(6)
     radius= NumericProperty(20)
     header_max_darkness= NumericProperty(0.7)
 
