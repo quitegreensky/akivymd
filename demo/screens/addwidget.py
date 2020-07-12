@@ -26,12 +26,7 @@ class AnimatedBox(MDList, AKAddWidgetAnimationBehavior):
 
 class AddWidgetBehavior(Screen):
     def on_enter(self): 
-        items=[]
-        for x in range(20):
-            items.append(OneLineListItem(
-                text= 'item %d'%x, on_release=self.update
-            ))
-        self.ids.list.items= items
+        self.update()
 
     def update(self, *args):
         items=[]
