@@ -2,7 +2,7 @@ from kivy.lang.builder import Builder
 from kivy.uix.widget import Widget
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
-from kivy.properties import NumericProperty, ListProperty, StringProperty, BooleanProperty
+from kivy.properties import NumericProperty, ListProperty, StringProperty, BooleanProperty, OptionProperty
 from kivy.metrics import dp 
 from kivy.clock import Clock
 from kivymd.theming import ThemableBehavior
@@ -78,7 +78,7 @@ class BadgeItem(ThemableBehavior, BoxLayout):
     bg_color= ListProperty()
     badgeitem_padding= NumericProperty()
     badgeitem_color= ListProperty()
-    position= StringProperty()
+    position= OptionProperty('right', options=['right', 'left'])
     text= StringProperty('')
     bold= BooleanProperty()
     offset= NumericProperty()
