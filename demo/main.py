@@ -8,6 +8,8 @@ from screens import bottomnavigation,spinners, dataloader, selectionlist, piecha
 imageviewer, onboarding,progressbutton,silverappbar,badgelayout, addwidget, bottomappbar,\
 labelanimation
 
+from akivymd.uix.statusbarcolor import change_statusbar_color
+    
 kv='''
 <MyMenuItem@OneLineAvatarListItem>
     IconLeftWidget:
@@ -58,6 +60,7 @@ class DemoApp(MDApp):
         self.theme_cls.primary_palette= 'Teal'
         self.theme_cls.theme_style='Dark'
         self.title='Awesome KivyMD'
+        change_statusbar_color(self.theme_cls.primary_color)
 
     def build(self):
         self.mainkv=Builder.load_string(kv)
