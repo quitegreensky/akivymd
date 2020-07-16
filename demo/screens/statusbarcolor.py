@@ -16,17 +16,17 @@ Builder.load_string(
         FloatLayout:
             MDRaisedButton:
                 text: 'Red'
-                on_release: root.change_color( (1,0,0,1) )
+                on_release: root.change_color( (1,0,0,1), 'Light' )
                 pos_hint: {'center_x': .5, 'center_y': 0.1}
 
             MDRaisedButton:
                 text: 'Green'
-                on_release: root.change_color( (0,0.7,0,1) )
+                on_release: root.change_color( (0,0.7,0,1), 'Light' )
                 pos_hint: {'center_x': .5, 'center_y': 0.3}    
 
             MDRaisedButton:
                 text: 'Blue'
-                on_release: root.change_color( (0,0,1,1) )
+                on_release: root.change_color( (0,0,1,1), 'Light' )
                 pos_hint: {'center_x': .5, 'center_y': 0.5}
             
             MDRaisedButton:
@@ -43,5 +43,5 @@ Builder.load_string(
 
 class StatusbarColor(Screen):
 
-    def change_color(self, color):
-        return change_statusbar_color(color)
+    def change_color(self, color, mode):
+        return change_statusbar_color(color, mode)
