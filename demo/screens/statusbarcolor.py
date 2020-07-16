@@ -6,6 +6,7 @@ Builder.load_string(
     """
 <StatusbarColor>:
     name: 'StatusbarColor'
+    on_leave: root.change_color( app.theme_cls.primary_color )
     BoxLayout:
         orientation: 'vertical'
         MDToolbar:
