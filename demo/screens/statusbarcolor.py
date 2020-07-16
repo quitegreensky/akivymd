@@ -31,12 +31,12 @@ Builder.load_string(
             
             MDRaisedButton:
                 text: 'Yellow'
-                on_release: root.change_color( (1,1,0,1) )
+                on_release: root.change_color( (1,1,0,1), 'Dark' )
                 pos_hint: {'center_x': .5, 'center_y': 0.7}
 
             MDRaisedButton:
                 text: 'White'
-                on_release: root.change_color( (1,1,1,1) )
+                on_release: root.change_color( (1,1,1,1), 'Dark' )
                 pos_hint: {'center_x': .5, 'center_y': 0.9}                                              
     """
 )
