@@ -18,7 +18,6 @@ Builder.load_string(
 
         AKBottomNavigation:
             items: root.bottomnavigation_items
-
 '''
 )
 

@@ -21,11 +21,11 @@ Builder.load_string(
     halign: 'center'
     valign: 'center'
     theme_text_color: 'Custom'
-    text_color: root.theme_cls.primary_light
+    text_color: root.text_color if root.text_color else root.theme_cls.primary_light
 
 <_AKButton>
     theme_text_color: 'Custom'
-    text_color: root.theme_cls.primary_color
+    text_color: root.icon_color if root.icon_color else root.theme_cls.primary_color
 
 <AKBottomNavigation>:
     orientation: 'vertical'
@@ -37,7 +37,7 @@ Builder.load_string(
 
         canvas.before:
             Color:
-                rgba: app.theme_cls.primary_color
+                rgba: root.bar_color if root.bar_color else root.theme_cls.primary_color
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -48,7 +48,7 @@ Builder.load_string(
 
         canvas.before:
             Color:
-                rgba: app.theme_cls.bg_dark
+                rgba: root.bg_color if root.bg_color else root.theme_cls.bg_dark
             Rectangle:
                 pos: self.pos
                 size: self.size
@@ -60,7 +60,7 @@ Builder.load_string(
             size: root.width , dp(70)            
             canvas.before:
                 Color:
-                    rgba: app.theme_cls.primary_color
+                    rgba: root.bar_color if root.bar_color else root.theme_cls.primary_color
                 Rectangle:
                     pos: self.bubble_x , dp(28)
                     size: dp(112) , dp(28)
@@ -68,7 +68,7 @@ Builder.load_string(
                     pos: self.bubble_x+dp(28) , 0
                     size: dp(56) , dp(56)
                 Color:
-                    rgba: app.theme_cls.bg_dark
+                    rgba: root.bg_color if root.bg_color else root.theme_cls.bg_dark
                 Ellipse:
                     pos: self.bubble_x - dp(28) , 0
                     size: dp(56) , dp(56)
@@ -91,11 +91,13 @@ Builder.load_string(
 )
 
 class _AKLabel(MDLabel):
+    text_color= ListProperty()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
 
 class _AKButton(MDIconButton):
+    icon_color= ListProperty()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -123,7 +125,11 @@ class _AKButton(MDIconButton):
     
 class AKBottomNavigation(ThemableBehavior,BoxLayout):
     items = ListProperty()
-    
+    bar_color= ListProperty()
+    icon_color= ListProperty()
+    text_color= ListProperty()
+    bg_color= ListProperty()
+
     selected = -1
     def __init__(self, **kwargs):
         super().__init__(**kwargs)  
@@ -141,6 +147,7 @@ class AKBottomNavigation(ThemableBehavior,BoxLayout):
             button = _AKButton(
                 icon=self.items[x]['icon'],
                 pos_hint= {'center_x': but_pos},
+                icon_color= self.icon_color
                 )
             button.bind(on_release = self.items[x]['on_release'])
 
@@ -148,6 +155,7 @@ class AKBottomNavigation(ThemableBehavior,BoxLayout):
                 text=self.items[x]['text'] , 
                 pos_hint= {'center_x': but_pos},
                 opacity = 0,
+                text_color= self.text_color
             )
 
             self.ids._text_bar.add_widget(label)
