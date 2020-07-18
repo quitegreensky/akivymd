@@ -1,6 +1,5 @@
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
-from akivymd.uix.badgelayout import AKBadgeLayout
 Builder.load_string(
 '''
 <MyAKBadgeLayout@AKBadgeLayout>

@@ -1,4 +1,3 @@
-from akivymd.uix.spinners import AKSpinnerCircleFlip, AKSpinnerDoubleBounce, AKSpinnerFoldingCube, AKSpinnerThreeDots
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 Builder.load_string(
