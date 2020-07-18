@@ -1,5 +1,4 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.onboarding import AKOnboarding, AKOnboardingItem
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
 
