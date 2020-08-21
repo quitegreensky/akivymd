@@ -6,6 +6,13 @@ from akivymd.uix.bottomnavigation2 import AKBottomNavigation2, Button_Item
 
 Builder.load_string(
 '''
+<On_active_button@Button_Item>
+    icon_color: app.theme_cls.text_color
+    text_color: app.theme_cls.text_color
+    button_bg_color: app.theme_cls.primary_color
+    mode: 'color_on_active'
+    badge_disabled: True 
+
 <BottomNavigation>
     name: 'BottomNavigation'
     BoxLayout:
@@ -16,6 +23,18 @@ Builder.load_string(
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
         BoxLayout:
             orientation: 'vertical'
+
+        AKBottomNavigation2:
+            bg_color: app.theme_cls.bg_dark
+            On_active_button:
+                text: 'Alert'
+                icon: 'bell-outline'
+            On_active_button:
+                text: 'Bank'
+                icon: 'bank-outline'
+            On_active_button:
+                text: 'Download'
+                icon: 'arrow-down-bold-outline'
 
         AKBottomNavigation2:
             bg_color: app.theme_cls.bg_dark
@@ -43,14 +62,6 @@ Builder.load_string(
                 text_color: 0.8,0,0 ,1
                 button_bg_color: 1,0.6,0.6 ,1    
                 badge_disabled: True 
-
-            Button_Item:
-                text: 'Account'
-                icon: 'account-circle-outline'
-                icon_color: 0,0.4,0 ,1
-                text_color: 0,0.4,0 ,1
-                button_bg_color: 0.4,1,0.4 ,1 
-                badge_text: '+2'  
 
         AKBottomNavigation:
             items: root.bottomnavigation_items
