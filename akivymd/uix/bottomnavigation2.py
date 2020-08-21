@@ -75,14 +75,7 @@ Builder.load_string(
             radius: [root.radius, root.radius, 0,0]
     
     BoxLayout:
-    BoxLayout:
         id: _button_box
-        spacing: dp(20)
-        size_hint_x: None 
-        width: self.minimum_width
-
-    BoxLayout:
-
     """
 )
 
@@ -147,15 +140,12 @@ class AKBottomNavigation2(ThemableBehavior, BoxLayout):
 
     def _update(self, *args):
         self.width= Window.width
-        button_sizes= 0
         buttons= self.ids._button_box.children
-        for button in buttons:
-            button_sizes+= button.width
-        
-        button_sizes+= buttons[0].button_width
+        button_sizes= ((len(buttons)-1)* buttons[0].button_height) + buttons[0].button_width
         space= self.width - button_sizes
         spacing= space/(len(buttons)+1)
         self.ids._button_box.spacing= spacing
+        self.ids._button_box.padding= [spacing,0, spacing, 0]
 
     def set_current(self, index):
         if not index:
