@@ -2,11 +2,10 @@ from akivymd.uix.bottomnavigation import AKBottomNavigation
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
-from akivymd.uix.bottomnavigation2 import AKBottomNavigation2
+from akivymd.uix.bottomnavigation2 import AKBottomNavigation2, Button_Item
 
 Builder.load_string(
 '''
-
 <BottomNavigation>
     name: 'BottomNavigation'
     BoxLayout:
