@@ -8,7 +8,7 @@ from kivymd.uix.behaviors import CircularRippleBehavior
 from kivy.animation import Animation
 from kivy.clock import Clock
 from akivymd.uix.badgelayout import AKBadgeLayout
-
+from kivy.core.window import Window
 Builder.load_string(
     """
 <Button_Item>
@@ -24,7 +24,6 @@ Builder.load_string(
             size: self.size 
             pos: self.pos 
             radius: [self.height/2,]
-
 
     AKBadgeLayout:
         badgeitem_size: root.badgeitem_size
@@ -47,7 +46,6 @@ Builder.load_string(
             theme_text_color: 'Custom'
             text_color: root.icon_color if root.icon_color else app.theme_cls.primary_dark
 
-
     FloatLayout:
         id: _float
         size_hint_x: None 
@@ -66,7 +64,7 @@ Builder.load_string(
             x: _float.x + (_float.width- _label.width)/2  - (root.height- _icon.font_size)/2
 
 <AKBottomNavigation2>:
-    size_hint_y: None 
+    size_hint: None, None 
     height: root.bottomnavigation_height
     canvas.before:
         Color:
@@ -139,6 +137,22 @@ class AKBottomNavigation2(ThemableBehavior, BoxLayout):
     radius= NumericProperty('20dp')
     bg_color= ListProperty(None)
     elelevation = NumericProperty(None)
+
+    
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        Window.bind(on_resize=self._update )
+
+    def _update(self, *args):
+        self.width= Window.width
+        button_sizes= 0
+        buttons= self.ids._button_box.children
+        for button in buttons:
+            button_sizes+= button.width
+        
+        space= self.width - button_sizes
+        spacing= space/(len(buttons)+1)
+        self.ids._button_box.spacing= spacing
 
     def add_widget(self, widget, index=0, canvas=None):
         if issubclass(widget.__class__, Button_Item):
