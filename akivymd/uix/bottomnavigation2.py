@@ -152,6 +152,7 @@ class AKBottomNavigation2(ThemableBehavior, BoxLayout):
         for button in buttons:
             button_sizes+= button.width
         
+        button_sizes+= buttons[0].button_width
         space= self.width - button_sizes
         spacing= space/(len(buttons)+1)
         self.ids._button_box.spacing= spacing
