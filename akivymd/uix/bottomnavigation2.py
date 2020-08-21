@@ -142,6 +142,8 @@ class AKBottomNavigation2(ThemableBehavior, BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Window.bind(on_resize=self._update )
+        Clock.schedule_once(lambda x: self.set_current(None))
+        Clock.schedule_once(lambda x: self._update() )
 
     def _update(self, *args):
         self.width= Window.width
@@ -153,6 +155,12 @@ class AKBottomNavigation2(ThemableBehavior, BoxLayout):
         space= self.width - button_sizes
         spacing= space/(len(buttons)+1)
         self.ids._button_box.spacing= spacing
+
+    def set_current(self, index):
+        if not index:
+            index= -1
+        button= self.ids._button_box.children[index]
+        button.dispatch('on_release')
 
     def add_widget(self, widget, index=0, canvas=None):
         if issubclass(widget.__class__, Button_Item):
