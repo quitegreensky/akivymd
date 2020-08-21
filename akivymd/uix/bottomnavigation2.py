@@ -1,6 +1,6 @@
 from kivy.lang.builder import Builder
 from kivy.uix.boxlayout import BoxLayout
-from kivy.properties import NumericProperty, StringProperty, ListProperty, BooleanProperty
+from kivy.properties import NumericProperty, StringProperty, ListProperty, BooleanProperty, OptionProperty
 from kivymd.theming import ThemableBehavior
 from kivy.metrics import dp 
 from kivy.uix.behaviors import ButtonBehavior
@@ -20,6 +20,7 @@ Builder.load_string(
     canvas.before:
         Color: 
             rgba: root.button_bg_color if root.button_bg_color else app.theme_cls.primary_light
+            a: root._bg_opacity
         RoundedRectangle:
             size: self.size 
             pos: self.pos 
@@ -91,6 +92,7 @@ class Button_Item(ThemableBehavior,ButtonBehavior, BoxLayout):
     icon_color= ListProperty(None)
     text= StringProperty()
     icon= StringProperty()
+    mode= OptionProperty('color_on_normal', options=['color_on_normal', 'color_on_active'])
     #================
     badgeitem_size= NumericProperty(dp(20))  
     badge_bg_color= ListProperty()
@@ -101,7 +103,12 @@ class Button_Item(ThemableBehavior,ButtonBehavior, BoxLayout):
     badge_bold= BooleanProperty(False)
     badge_offset= NumericProperty(0.4)
     badge_disabled= BooleanProperty(False)        
-        
+    
+    _bg_opacity= NumericProperty(1)
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
     def on_release(self):
         for button in self.parent.children:
             if button==self:
@@ -115,14 +122,19 @@ class Button_Item(ThemableBehavior,ButtonBehavior, BoxLayout):
         label_anim= Animation(opacity=1, transition= self.transition, duration= self.duration)
         label_anim.start(self.ids._label)
 
-        anim= Animation(width=self.button_width, t=self.transition,  duration= self.duration)  
+        anim= Animation(width=self.button_width, _bg_opacity=1, t=self.transition,  duration= self.duration)  
         anim.start(self)
 
     def _button_shrink(self):
+        if self.mode=='color_on_active':
+            opacity= 0
+        else: 
+            opacity= 1
+
         label_anim=  Animation(opacity=0, transition= self.transition, duration= self.duration)
         label_anim.start(self.ids._label)
 
-        but_anim= Animation(width=self.height, t=self.transition, duration= self.duration)
+        but_anim= Animation(width=self.height, _bg_opacity=opacity, t=self.transition, duration= self.duration)
         but_anim.start(self)
 
 class AKBottomNavigation2(ThemableBehavior, BoxLayout):
@@ -131,7 +143,6 @@ class AKBottomNavigation2(ThemableBehavior, BoxLayout):
     bg_color= ListProperty(None)
     elelevation = NumericProperty(None)
 
-    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Window.bind(on_resize=self._update )
