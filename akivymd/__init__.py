@@ -7,3 +7,4 @@ __email__="quitegreensky@gmail.com"
 Logger.info(f"AKivymd: v{__version__}")
 
 import akivymd.factory_registers
+from akivymd.tools.pyinstaller_hooks import hooks_path
