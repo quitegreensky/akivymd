@@ -26,15 +26,6 @@ Builder.load_string(
         halign: 'center'
         vlighn: 'center'
 
-<_DayButton>
-    on_release: root.set_day(self.text)
-
-<_MonthButton>
-    on_release: root.set_month(self.text)
-
-<_YearButton>
-    on_release: root.set_year(self.text)
-
 <AKDatePicker>:
     size_hint: None,None
     size: 
@@ -61,6 +52,7 @@ Builder.load_string(
                     size: self.size 
                     pos: self.pos 
                     radius:[(10.0, 10.0), (10.0, 10.0), (0, 0), (0, 0)]
+            
             MDLabel:
                 text: root._year_title
                 theme_text_color: 'Custom'
@@ -68,6 +60,7 @@ Builder.load_string(
                 halign: 'center'
                 vlighn: 'center'
                 fon_style: 'H5'
+            
             MDLabel:
                 text: root._month_title
                 theme_text_color: 'Custom'
@@ -75,6 +68,7 @@ Builder.load_string(
                 halign: 'center'
                 vlighn: 'center'
                 fon_style: 'H5'           
+
             MDLabel:
                 text: root._day_title
                 theme_text_color: 'Custom'
@@ -93,6 +87,7 @@ Builder.load_string(
                 RoundedRectangle:
                     size: self.size 
                     pos: self.pos    
+
             MDLabeltitle:
                 text: 'Year'
             
@@ -120,25 +115,27 @@ Builder.load_string(
                     orientation: 'vertical'
                     adaptive_height: True
         BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            padding: [dp(10) , 0]
+            spacing: dp(10)
             canvas.before:
                 Color:
                     rgba: root.theme_cls.bg_dark
                 RoundedRectangle:
                     size: self.size 
                     pos: self.pos
-                    radius: [(0.0, 10.0), (0.0, 10.0), (10, 10), (10, 10)]            
-            size_hint_y: None
-            height: dp(40)
-            padding: [dp(10) , 0]
-            spacing: dp(10)
+                    radius: [(0.0, 10.0), (0.0, 10.0), (10, 10), (10, 10)]   
+                             
             MDFlatButton:
                 text: 'Cancel'
                 pos_hint: {'center_x': .5 , 'center_y': .5}
                 on_release: root.cancel()
+                
             MDFlatButton:
                 text: 'Select'
                 pos_hint: {'center_x': .5 , 'center_y': .5}
-                on_release: root.choose()
+                on_release: root._choose()
 '''
 )                    
 
@@ -168,22 +165,33 @@ class AKDatePicker(BaseDialog, ThemableBehavior):
 
         self.callback = callback
         for x in reversed(range(self.year_range[0], self.year_range[1])):
-            self.ids.year_view.add_widget(_YearButton(text='%d'%x))
+            self.ids.year_view.add_widget(ButtonBase(text='%d'%x, on_release= self._set_year))
         for x in reversed(range(1,13)):
             if self.month_type=='string':
                 month= self.month_dic[str(x)]
             else: 
                 month= str(x)
 
-            self.ids.month_view.add_widget(_MonthButton(text=month))
+            self.ids.month_view.add_widget(ButtonBase(text=month, on_release=self._set_month))
         for x in reversed(range(1,32)):
-            self.ids.day_view.add_widget(_DayButton(text='%d'%x))
+            self.ids.day_view.add_widget(ButtonBase(text='%d'%x, on_release=self._set_day))
+
+    def _set_day(self, instance):
+        self._day_title= instance.text 
+    
+    def _set_month(self, instance):
+        self._month_title= instance.text 
+
+    def _set_year(self, instance):
+        self._year_title= instance.text 
 
     def on_dismiss(self):
         self._year_title='-'
         self._month_title = '-'
         self._day_title= '-'
-    def choose(self):
+        return 
+
+    def _choose(self):
         if not self.callback:
             return False
 
@@ -200,29 +208,14 @@ class AKDatePicker(BaseDialog, ThemableBehavior):
                 int(self._day_title)
                 )
         except:
-            self.dismiss()
+            self.cancel()
             self.callback(False)
-            return
 
         self.callback(date)
-        self.dismiss()
+        self.cancel()
 
     def cancel(self):
         self.dismiss()
 
 class ButtonBase(RectangularRippleBehavior,ButtonBehavior,BoxLayout):
     text= StringProperty()
-    def __init__(self,**kwargs):
-        super().__init__(**kwargs)
-        
-class _DayButton(ButtonBase):
-    def set_day(self , value):
-        self.parent.parent.parent.parent.parent._day_title = value
-
-class _MonthButton(ButtonBase):
-    def set_month(self , value):
-        self.parent.parent.parent.parent.parent._month_title = value
-
-class _YearButton(ButtonBase):
-    def set_year(self , value):
-        self.parent.parent.parent.parent.parent._year_title = value
