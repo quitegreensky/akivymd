@@ -10,6 +10,13 @@ from kivymd.theming import ThemableBehavior
 
 Builder.load_string(
 '''
+<MDLabeltitle2@MDLabel>:
+    theme_text_color: 'Custom'
+    text_color: 1,1,1,1
+    halign: 'center'
+    vlighn: 'center'
+    fon_style: 'H5'
+
 <MDLabeltitle@MDLabel>
     theme_text_color: 'Primary'
     halign: 'center'
@@ -53,30 +60,14 @@ Builder.load_string(
                     pos: self.pos 
                     radius:[(10.0, 10.0), (10.0, 10.0), (0, 0), (0, 0)]
             
-            MDLabel:
+            MDLabeltitle2:
                 text: root._year_title
-                theme_text_color: 'Custom'
-                text_color: 1,1,1,1
-                halign: 'center'
-                vlighn: 'center'
-                fon_style: 'H5'
             
-            MDLabel:
+            MDLabeltitle2:
                 text: root._month_title
-                theme_text_color: 'Custom'
-                text_color: 1,1,1,1
-                halign: 'center'
-                vlighn: 'center'
-                fon_style: 'H5'           
 
-            MDLabel:
+            MDLabeltitle2:
                 text: root._day_title
-                theme_text_color: 'Custom'
-                text_color: 1,1,1,1
-                halign: 'center'
-                vlighn: 'center'
-                fon_style: 'H5'
-
 
         BoxLayout:
             size_hint_y: None
@@ -84,7 +75,7 @@ Builder.load_string(
             canvas.before:
                 Color:
                     rgba: root.theme_cls.bg_dark
-                RoundedRectangle:
+                Rectangle:
                     size: self.size 
                     pos: self.pos    
 
