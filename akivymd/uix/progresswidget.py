@@ -11,6 +11,11 @@ Builder.load_string(
 
     canvas.before:
         Color: 
+            rgba: root.background_circle_color if root.background_circle_color else app.theme_cls.primary_light            
+        Line:
+            circle: ( self.x+ self.width/2, self.y+ self.height/2, self.height/2, root.start_deg, root.end_deg)
+            width: root.background_line_width    
+        Color: 
             rgba: root.circle_color if root.circle_color else app.theme_cls.primary_color
         Line:
             circle: ( self.x+ self.width/2, self.y+ self.height/2, self.height/2, root.start_deg, root._current_deg)
@@ -39,6 +44,8 @@ class AKCircularProgress(ThemableBehavior, BoxLayout):
     anim_transition= StringProperty('out_quad') 
     max_percent= NumericProperty(100)
     percent_type= OptionProperty('percent', options=['percent', 'relative'])
+    background_circle_color= ListProperty()
+    background_line_width= NumericProperty('1dp')
     _current_deg= NumericProperty(-1)
 
     def __init__(self, **kwargs):
