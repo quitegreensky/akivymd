@@ -38,9 +38,11 @@ Builder.load_string(
         size: self.texture_size 
 
 <AKFloatingRoundedAppbarAvatarItem>:
+    spacing: dp(1)
+    
     BoxLayout:
         size_hint: None,None 
-        size : [self.parent.height,self.parent.height]
+        size : [self.parent.height-2,self.parent.height-2] if not root.text else [dp(20), dp(20)]
         pos_hint: {'center_x': .5, 'center_y': .5}
         canvas.after:
             Color: 
@@ -49,6 +51,15 @@ Builder.load_string(
                 pos: self.pos 
                 size: self.size 
                 source: root.source
+
+    Label:
+        text: root.text
+        halign: 'center'
+        valign: 'center'
+        font_size: dp(10)
+        color: root.text_color if root.text_color else 1,1,1,1
+        size_hint: None,None 
+        size: self.texture_size
 
 <AKFloatingRoundedAppbar>:
     size_hint: None,None 
@@ -85,7 +96,9 @@ class AKFloatingRoundedAppbarButtonItem(AKFloatingRoundedAppbarItemBase):
     text= StringProperty()
 
 class AKFloatingRoundedAppbarAvatarItem(AKFloatingRoundedAppbarItemBase):
-    source= StringProperty() 
+    source= StringProperty()
+    text= StringProperty()
+    text_color= ListProperty()
 
 class AKFloatingRoundedAppbar(ThemableBehavior, BoxLayout):
     bg_color= ListProperty()
