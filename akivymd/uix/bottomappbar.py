@@ -42,7 +42,7 @@ Builder.load_string(
     
     BoxLayout:
         size_hint: None,None 
-        size : [self.parent.height-2,self.parent.height-2] if not root.text else [dp(20), dp(20)]
+        size : [self.parent.height-dp(2),self.parent.height-dp(2)] if not root.text else [dp(20), dp(20)]
         pos_hint: {'center_x': .5, 'center_y': .5}
         canvas.after:
             Color: 
