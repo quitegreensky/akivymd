@@ -199,9 +199,8 @@ class AKDatePicker(BaseDialog, ThemableBehavior):
                 int(self._day_title)
                 )
         except:
-            self.cancel()
-            self.callback(False)
-
+            date= False 
+            
         self.callback(date)
         self.cancel()
 
