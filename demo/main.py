@@ -6,7 +6,7 @@ from kivymd.uix.list import OneLineAvatarListItem
 ##
 from screens import bottomnavigation,spinners, dataloader, selectionlist, piechart,\
 imageviewer, onboarding,progressbutton,silverappbar,badgelayout, addwidget, bottomappbar,\
-labelanimation, statusbarcolor, datepicker, progresswidget
+labelanimation, statusbarcolor, datepicker, progresswidget, hintwidget
 
 from akivymd.uix.statusbarcolor import change_statusbar_color
     
@@ -51,7 +51,7 @@ class DemoApp(MDApp):
     screens=[
         'BottomNavigation','Spinners','Dataloader', 'Selectionlist','Piechart','ImageViewer',
         'Onboarding','ProgressButton','SilverAppbar','BadgeLayout','AddWidgetBehavior', 'BottomAppbar',
-        'LabelAnimation', 'StatusbarColor', 'DatePicker', 'ProgressWidget'
+        'LabelAnimation', 'StatusbarColor', 'DatePicker', 'ProgressWidget', 'HintWidget'
     ]
     intro= """here is where you can find all of the widgets. take a look at screens folder to find exmples of how to use them. I will gradually add more and more Awesome widets to this project. Stay tuned!"""
 
