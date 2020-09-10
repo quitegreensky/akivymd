@@ -33,6 +33,10 @@ Builder.load_string(
 
         AKFloatingRoundedAppbarAvatarItem:
             source: 'assets/google.jpg'
+        
+        AKFloatingRoundedAppbarAvatarItem:
+            source: 'assets/google.jpg'
+            text: 'Google'
     """
 )
 

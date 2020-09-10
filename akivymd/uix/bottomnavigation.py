@@ -2,7 +2,7 @@ from kivymd.app import MDApp
 from kivy.lang.builder import Builder
 from kivy.uix.boxlayout import BoxLayout
 from kivy.animation import Animation
-from kivy.properties import NumericProperty , ObjectProperty , ListProperty
+from kivy.properties import NumericProperty , ObjectProperty , ListProperty, StringProperty
 from kivy.clock import Clock
 from kivymd.uix.button import MDIconButton
 from kivy.metrics import dp
@@ -100,27 +100,13 @@ class _AKButton(MDIconButton):
     icon_color= ListProperty()
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-
-
-    def on_release(self):
+        Clock.schedule_once(lambda x: self._update())
         
-        self.index = self.parent.children.index(self)
-        AKBottomNavigation.selected = self.index
+    def on_release(self):
+        self.root.set_current( self.parent.children.index(self) )
 
-        for x in self.parent.children: # button 
-            x.opacity = 1
-
-        for x in self.parent.parent.children[-1].children: # text 
-            x.opacity = 0
-
-        bubble_pos = self.x - dp(31)
-        anim_bubble = Animation(bubble_x=bubble_pos , t='out_sine' , duration=0.2)
-        anim_text_opacity = Animation(opacity=1 , t='out_sine' , duration=0.2)
-        anim_icon_opacity = Animation(opacity=0 , t='out_sine' , duration=0.2)
-
-        anim_icon_opacity.start(self)
-        anim_text_opacity.start(self.parent.parent.children[-1].children[self.index])
-        anim_bubble.start(self.parent.parent)
+    def _update(self):
+        self.root= self.parent.parent.parent.parent 
 
     
 class AKBottomNavigation(ThemableBehavior,BoxLayout):
@@ -129,8 +115,10 @@ class AKBottomNavigation(ThemableBehavior,BoxLayout):
     icon_color= ListProperty()
     text_color= ListProperty()
     bg_color= ListProperty()
+    transition= StringProperty('out_sine')
+    duration= NumericProperty(0.2)
 
-    selected = -1
+    _selected = -1
     def __init__(self, **kwargs):
         super().__init__(**kwargs)  
         Window.bind(on_resize=self._on_resize)
@@ -161,13 +149,33 @@ class AKBottomNavigation(ThemableBehavior,BoxLayout):
             self.ids._text_bar.add_widget(label)
             self.ids._buttons_bar.add_widget(button)
             but_pos += section_x
-        self.ids._bubble.bubble_x = Window.size[0]*self.ids._buttons_bar.children[self.selected].pos_hint['center_x']-dp(56)
-        self.ids._buttons_bar.children[self.selected].opacity = 0      
-        self.ids._text_bar.children[self.selected].opacity = 1
+        self.ids._bubble.bubble_x = Window.size[0]*self.ids._buttons_bar.children[self._selected].pos_hint['center_x']-dp(56)
+        self.ids._buttons_bar.children[self._selected].opacity = 0      
+        self.ids._text_bar.children[self._selected].opacity = 1
 
     def _on_resize(self , instance , width , height):
-        self.ids._bubble.bubble_x = width*self.ids._buttons_bar.children[self.selected].pos_hint['center_x']-dp(56)
+        self.ids._bubble.bubble_x = width*self.ids._buttons_bar.children[self._selected].pos_hint['center_x']-dp(56)
     
     def on_items(self,*args):
         self._clear_bar()
         return self._update_items(self.items)
+
+    def set_current(self, index):
+        current_item_button= self.ids._buttons_bar.children[index]
+        current_item_text = self.ids._text_bar.children[index]
+        AKBottomNavigation._selected = index
+
+        for x in self.ids._buttons_bar.children: # button 
+            x.opacity = 1
+
+        for x in self.ids._text_bar.children: # text 
+            x.opacity = 0
+
+        bubble_pos = current_item_button.x - dp(31)
+        anim_bubble = Animation(bubble_x=bubble_pos , t=self.transition , duration=self.duration)
+        anim_text_opacity = Animation(opacity=1 , t=self.transition , duration=self.duration)
+        anim_icon_opacity = Animation(opacity=0 , t=self.transition , duration=self.duration)
+
+        anim_icon_opacity.start(current_item_button)
+        anim_text_opacity.start(current_item_text)
+        anim_bubble.start(self.ids._bubble)
