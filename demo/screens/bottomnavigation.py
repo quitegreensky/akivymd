@@ -1,4 +1,3 @@
-from akivymd.uix.bottomnavigation import AKBottomNavigation
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
@@ -65,13 +64,14 @@ Builder.load_string(
 
         AKBottomNavigation:
             items: root.bottomnavigation_items
+
 '''
 )
 
 class BottomNavigation(Screen):
 
     bottomnavigation_items=[
-        {'icon':'android' , 'text': 'android' , 'on_release': lambda x: toast('android')},
+        {'icon':'home' , 'text': 'home' , 'on_release': lambda x: toast('home')},
         {'icon':'menu' , 'text': 'menu' , 'on_release': lambda x: toast('menu')},
         {'icon':'account' , 'text': 'account' , 'on_release': lambda x: toast('account')},
 

@@ -1,4 +1,4 @@
-from akivymd.uix.selectionlist import AKSelectList,AKSelectListAvatarItem
+from akivymd.uix.selectionlist import AKSelectListAvatarItem
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast

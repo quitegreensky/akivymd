@@ -1,5 +1,4 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.piechart import AKPieChart
 from kivy.uix.screenmanager import Screen
 from kivy.metrics import dp
 
