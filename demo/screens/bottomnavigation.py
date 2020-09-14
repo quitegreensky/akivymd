@@ -25,7 +25,7 @@ Builder.load_string(
             orientation: 'vertical'
 
         AKBottomNavigation2:
-            bg_color: app.theme_cls.bg_dark
+            bg_color: app.theme_cls.bg_darkest
             On_active_button:
                 text: 'Alert'
                 icon: 'bell-outline'
@@ -37,7 +37,7 @@ Builder.load_string(
                 icon: 'arrow-down-bold-outline'
 
         AKBottomNavigation2:
-            bg_color: app.theme_cls.bg_dark
+            bg_color: app.theme_cls.bg_darkest
 
             Button_Item:
                 text: 'Alert'
@@ -71,8 +71,8 @@ Builder.load_string(
 class BottomNavigation(Screen):
 
     bottomnavigation_items=[
-        {'icon':'android' , 'text': 'android' , 'on_release': lambda x: toast('android')},
-        {'icon':'menu' , 'text': 'menu' , 'on_release': lambda x: toast('menu')},
-        {'icon':'account' , 'text': 'account' , 'on_release': lambda x: toast('account')},
+        {'icon':'android' , 'text': 'android' , 'on_release': lambda x: None },
+        {'icon':'menu' , 'text': 'menu' , 'on_release': lambda x: None },
+        {'icon':'account' , 'text': 'account' , 'on_release': lambda x: None },
 
     ]

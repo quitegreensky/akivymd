@@ -58,7 +58,7 @@ class DemoApp(MDApp):
     def __init__(self,**kwargs):
         super().__init__(**kwargs)
         self.theme_cls.primary_palette= 'Teal'
-        self.theme_cls.theme_style='Dark'
+        self.theme_cls.theme_style='Light'
         self.title='Awesome KivyMD'
         change_statusbar_color(self.theme_cls.primary_color)
 
