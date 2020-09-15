@@ -34,3 +34,11 @@ r("AKFloatingWindow", module="akivymd.uix.windows")
 r("AKAnimationBehaviorBase", module="akivymd.uix.behaviors.labelanimation")
 r("AKAnimationIconBehavior", module="akivymd.uix.behaviors.labelanimation")
 r("AKAnimationTextBehavior", module="akivymd.uix.behaviors.labelanimation")
+r("AKNavigationrail", module="akivymd.uix.navigationrail")
+r("AKNavigationrailContent", module="akivymd.uix.navigationrail")
+r("AKNavigationrailCustomItem", module="akivymd.uix.navigationrail")
+r("AKNavigationrailItem", module="akivymd.uix.navigationrail")
+
+
+
+
