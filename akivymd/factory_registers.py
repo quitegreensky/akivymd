@@ -38,7 +38,4 @@ r("AKNavigationrail", module="akivymd.uix.navigationrail")
 r("AKNavigationrailContent", module="akivymd.uix.navigationrail")
 r("AKNavigationrailCustomItem", module="akivymd.uix.navigationrail")
 r("AKNavigationrailItem", module="akivymd.uix.navigationrail")
-
-
-
-
+r("AKAnimationTextBehavior", module="akivymd.uix.behaviors.labelanimation")

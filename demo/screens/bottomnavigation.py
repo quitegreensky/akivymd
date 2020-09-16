@@ -1,4 +1,3 @@
-from akivymd.uix.bottomnavigation import AKBottomNavigation
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
@@ -65,6 +64,7 @@ Builder.load_string(
 
         AKBottomNavigation:
             items: root.bottomnavigation_items
+
 '''
 )
 
