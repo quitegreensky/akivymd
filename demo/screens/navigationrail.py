@@ -5,7 +5,6 @@ from kivy.uix.screenmanager import Screen
 Builder.load_string( """
 <Navigationrail>:
     name: 'Navigationrail'
-    on_enter: rail.refresh_items()
 
     AKNavigationrail:
         id: rail
