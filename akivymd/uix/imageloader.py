@@ -12,14 +12,14 @@ Builder.load_string(
     source: ' '
     canvas.before:
         Color:
-            rgba: root.theme_cls.bg_darkest
+            rgba: root.fr_color
             a: root.fr_rec_opacity
         RoundedRectangle:
             pos: self.pos
             size: self.size
             radius: [(self.size[0]/2,self.size[1]/2) , (self.size[0]/2,self.size[1]/2),(self.size[0]/2,self.size[1]/2),(self.size[0]/2,self.size[1]/2) ] if root.circle==True else [(dp(20),dp(20)) , (dp(20),dp(20)) , (dp(20),dp(20)) , (dp(20),dp(20)) ]
         Color:
-            rgba: root.theme_cls.bg_dark   
+            rgba: root.bg_color   
             a: root.bg_rec_opacity
         RoundedRectangle:
             pos: self.pos
@@ -34,7 +34,8 @@ class AKImageLoader(ThemableBehavior, AsyncImage):
     bg_rec_opacity= NumericProperty(0)
     fr_rec_opacity= NumericProperty(0)
     circle= BooleanProperty(True)
-
+    bg_color= theme_cls.bg_dark
+    fr_color= theme_cls.bg_dark
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.start_anim = None 
