@@ -6,7 +6,6 @@ from kivy.clock import Clock
 from kivy.animation import Animation
 from kivy.uix.behaviors import ButtonBehavior
 from kivymd.uix.behaviors import RectangularRippleBehavior
-from kivy.core.window import Window
 
 Builder.load_string(
     """
@@ -153,7 +152,6 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_once(lambda x: self._update())
-        Window.bind(on_resize= self._reset_pos)
         self.register_event_type('on_open')
         self.register_event_type('on_dismiss')
 
@@ -210,23 +208,21 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
         return
 
     def refresh_items(self):
-        self.set_current(self._selected,item_index=False, anim=False )
+        if not self._selected:
+            return
+        Clock.schedule_once( lambda x: self.set_current(self._selected,item_index=False, anim=False ) )
         return 
 
     def set_current(self,index, item_index= True, anim=True):
         if item_index:
             item= self.get_item_children()[index]
             all_items = self.get_all_children()
-            for idx, i in enumerate(all_items):
-                if i == item: 
-                    index= idx 
-                    break
-        else:
-            idx= index
-        button = self.ids.items_box.children[idx]
+            index = all_items.index(item)
+
+        button = self.ids.items_box.children[index]
         y = button.pos[1]
         self._activete_button(button)        
-        self._set_selected(idx)
+        self._set_selected(index)
         self._set_ghost_pos(y, anim= anim) 
 
     def _activete_button(self, button):
@@ -245,11 +241,9 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
     def _set_selected(self, index):
         self._selected= index
 
-    def _reset_pos(self, *args):
-        if not self._selected:
-            return
-        Clock.schedule_once(lambda x: self.set_current(self._selected, item_index=False, anim=False ) )
-    
+    def on_size(self, *args):
+        self.refresh_items()
+
     def add_widget(self, widget, index=0, canvas=None):
         if issubclass(widget.__class__, AKNavigationrailItem):
             self.ids.items_box.add_widget(widget)
