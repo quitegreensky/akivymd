@@ -28,11 +28,8 @@ requirements =  kivy,kivymd, git+https://github.com/quitegreensky/akivymd.git
 You can find usage examples in the demo app.
  
 ## Examples
-<p style="text-align:center">
-<img align="center" width="512" src="https://raw.githubusercontent.com/quitegreensky/akivymd/master/images/bottomnavigation.gif"/>
-<img align="center" width="512" src="https://raw.githubusercontent.com/quitegreensky/akivymd/master/images/dataloader.gif"/>
-<img align="center" width="512" src="https://raw.githubusercontent.com/quitegreensky/akivymd/master/images/piechart.gif"/>
-<img align="center" width="512" src="https://raw.githubusercontent.com/quitegreensky/akivymd/master/images/spinners.gif"/>
+<p align="center">
+<img align="center" width="512" src="https://raw.githubusercontent.com/quitegreensky/akivymd/master/images/preview.gif"/>
 </p>
 
 ## Contributing
