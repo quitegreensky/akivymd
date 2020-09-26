@@ -2,11 +2,11 @@ from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 from akivymd.uix.badgelayout import AKBadgeLayout
 Builder.load_string(
-'''
+    '''
 <MyAKBadgeLayout@AKBadgeLayout>
     pos_hint: {'center_x': .5, 'center_y': .5}
     badgeitem_padding: dp(5)
-    bold: True 
+    bold: True
 
 <BadgeLayout>
     name: 'BadgeLayout'
@@ -19,7 +19,7 @@ Builder.load_string(
             orientation: 'vertical'
             spacing: dp(20)
             padding: dp(20)
-            
+
             Widget:
 
             MyAKBadgeLayout:
@@ -32,7 +32,7 @@ Builder.load_string(
                 text: '41'
                 badgeitem_color: 1,0,0,1
                 MDLabel:
-                    size_hint: None, None 
+                    size_hint: None, None
                     size: dp(100), dp(20)
                     valign: 'center'
                     halign: 'center'
@@ -44,7 +44,7 @@ Builder.load_string(
                 offset: 0.5
                 position: 'left'
                 MDFillRoundFlatButton:
-                    text:'Press'                    
+                    text:'Press'
 
             MyAKBadgeLayout:
                 text: 'KivyMD'
@@ -52,7 +52,7 @@ Builder.load_string(
                 position: 'left'
                 badgeitem_color: app.theme_cls.primary_color
                 MDRoundFlatButton:
-                    text:'Press'                    
+                    text:'Press'
 
 
             MyAKBadgeLayout:
@@ -60,19 +60,20 @@ Builder.load_string(
                 position: 'right'
                 offset: 0.5
                 MDDropDownItem:
-                    text:'Press'   
+                    text:'Press'
 
             MyAKBadgeLayout:
                 text: ''
                 position: 'right'
                 badgeitem_color: 1,0,0,1
                 MDFloatingActionButton:
-                    icon: 'android'   
+                    icon: 'android'
 
             Widget:
 
 '''
 )
 
+
 class BadgeLayout(Screen):
-    pass 
+    pass

@@ -22,13 +22,13 @@ Builder.load_string(
             MDRaisedButton:
                 text: 'Green'
                 on_release: root.change_color( (0,0.7,0,1), 'Light' )
-                pos_hint: {'center_x': .5, 'center_y': 0.3}    
+                pos_hint: {'center_x': .5, 'center_y': 0.3}
 
             MDRaisedButton:
                 text: 'Blue'
                 on_release: root.change_color( (0,0,1,1), 'Light' )
                 pos_hint: {'center_x': .5, 'center_y': 0.5}
-            
+
             MDRaisedButton:
                 text: 'Yellow'
                 on_release: root.change_color( (1,1,0,1), 'Dark' )
@@ -37,9 +37,10 @@ Builder.load_string(
             MDRaisedButton:
                 text: 'White'
                 on_release: root.change_color( (1,1,1,1), 'Dark' )
-                pos_hint: {'center_x': .5, 'center_y': 0.9}                                              
+                pos_hint: {'center_x': .5, 'center_y': 0.9}
     """
 )
+
 
 class StatusbarColor(Screen):
 

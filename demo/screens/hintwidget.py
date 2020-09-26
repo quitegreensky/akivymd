@@ -11,11 +11,11 @@ Builder.load_string(
     mode_text: ''
     pos_text: ''
     canvas.before:
-        Color: 
+        Color:
             rgba: app.theme_cls.bg_normal
         RoundedRectangle:
-            pos: self.pos 
-            size: self.size 
+            pos: self.pos
+            size: self.size
     MDLabel:
         halign: 'center'
         valign: 'center'
@@ -39,52 +39,53 @@ Builder.load_string(
         MDToolbar:
             title: root.name
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
-    
+
         FloatLayout:
 
             AKHintWidget:
-                size_hint: None, None 
+                size_hint: None, None
                 size: dp(400), dp(400)
                 pos_hint: {'x': .05, 'center_y': .5}
                 show_mode: 'hover'
                 hintwidget_pos: 'tr'
-                
+
                 canvas.before:
-                    Color: 
+                    Color:
                         rgba: 1,1,1,1
                     RoundedRectangle:
-                        pos: self.pos 
-                        size: self.size 
+                        pos: self.pos
+                        size: self.size
                         source: 'assets/fly.jpg'
-                
-                WidgetHint: 
+
+                WidgetHint:
                     mode_text: 'hover'
                     pos_text: 'top right'
 
             AKHintWidget:
-                size_hint: None, None 
+                size_hint: None, None
                 size: dp(400), dp(400)
                 pos_hint: {'right': .95, 'center_y': .5}
                 show_mode: 'touch'
                 hintwidget_pos: 'bl'
-                auto_dismiss: False 
+                auto_dismiss: False
                 open_button: 'right'
                 canvas.before:
-                    Color: 
+                    Color:
                         rgba: 1,1,1,1
                     RoundedRectangle:
-                        pos: self.pos 
-                        size: self.size 
+                        pos: self.pos
+                        size: self.size
                         source: 'assets/fly.jpg'
 
-                WidgetHint: 
+                WidgetHint:
                     mode_text: 'touch right button'
-                    pos_text: 'bottom left' 
+                    pos_text: 'bottom left'
                     MDRaisedButton:
                         text: 'Button'
                         pos_hint: {'center_x': .5}
 
         """)
 
+
 class HintWidget(Screen):
-    pass 
+    pass

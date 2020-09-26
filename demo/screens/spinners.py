@@ -2,7 +2,7 @@ from akivymd.uix.spinners import AKSpinnerCircleFlip, AKSpinnerDoubleBounce, AKS
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 Builder.load_string(
-'''
+    '''
 <SpinnerBox@MDBoxLayout>:
     adaptive_height: True
     text: ''
@@ -17,7 +17,7 @@ Builder.load_string(
 <Spinners>
     name: 'Spinners'
 
-    on_leave: 
+    on_leave:
         root.stop_animation()
 
     BoxLayout:
@@ -25,14 +25,14 @@ Builder.load_string(
         MDToolbar:
             title: root.name
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
-        
+
         FloatLayout:
             padding: dp(10)
             AKSpinnerCircleFlip:
                 id: circleflip
                 spinner_size: dp(30)
                 pos_hint: {'center_x': .5, 'top': 0.9}
-                                    
+
             AKSpinnerDoubleBounce:
                 id:doublebounce
                 spinner_size: dp(30)
@@ -40,7 +40,7 @@ Builder.load_string(
 
             AKSpinnerFoldingCube:
                 id: foldingcube
-                spinner_size: dp(40) 
+                spinner_size: dp(40)
                 pos_hint: {'center_x': .5,'center_y': 0.4}
                 angle: 45
 
@@ -62,21 +62,22 @@ Builder.load_string(
             text: 'Stop'
             on_release:
                 root.stop_animation()
-'''             
+'''
 )
+
 
 class Spinners(Screen):
 
     def stop_animation(self):
-        ids = self.ids 
-        ids.foldingcube.active=False
-        ids.threedots.active=False
-        ids.doublebounce.active=False
+        ids = self.ids
+        ids.foldingcube.active = False
+        ids.threedots.active = False
+        ids.doublebounce.active = False
         ids.circleflip.active = False
 
     def start_animation(self):
-        ids = self.ids 
-        ids.foldingcube.active=True
-        ids.threedots.active=True
-        ids.doublebounce.active=True
+        ids = self.ids
+        ids.foldingcube.active = True
+        ids.threedots.active = True
+        ids.doublebounce.active = True
         ids.circleflip.active = True

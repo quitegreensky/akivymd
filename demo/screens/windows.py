@@ -5,7 +5,7 @@ from kivy.uix.screenmanager import Screen
 Builder.load_string(
     """
 <MyWindow@AKFloatingWindow>
-    size_hint: None , None 
+    size_hint: None , None
     size: dp(300), dp(300)
     orientation: 'vertical'
 
@@ -17,7 +17,7 @@ Builder.load_string(
             id: toolbar
             title: root.name
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
-    
+
 
         BoxLayout:
             spacing: dp(10)
@@ -35,7 +35,7 @@ Builder.load_string(
             id: window2
             window_title: 'Window 2'
             top_widget: toolbar
-            MDLabel: 
+            MDLabel:
                 text: 'MyLabel'
                 halign: 'center'
                 valign: 'center'
@@ -49,7 +49,8 @@ Builder.load_string(
 
 
     """
-)    
+)
+
 
 class Windows(Screen):
-    pass 
+    pass

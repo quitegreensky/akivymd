@@ -28,23 +28,24 @@ Builder.load_string(
                 button: MDFillRoundFlatIconButton(text='Start', on_release= root.failure, icon='language-python')
     """)
 
+
 class ProgressButton(Screen):
 
     def __init__(self, **kw):
         super().__init__(**kw)
 
-    def success(self,*args):
-        t= Thread(target=self.start_success)
+    def success(self, *args):
+        t = Thread(target=self.start_success)
         t.start()
 
-    def failure(self,*args):
-        t= Thread(target=self.start_failure)
-        t.start()        
+    def failure(self, *args):
+        t = Thread(target=self.start_failure)
+        t.start()
 
-    def start_success(self,*args):
+    def start_success(self, *args):
         time.sleep(3)
         return self.ids.progressbutton_success.success()
 
-    def start_failure(self,*args):
+    def start_failure(self, *args):
         time.sleep(3)
         return self.ids.progressbutton_failure.failure()

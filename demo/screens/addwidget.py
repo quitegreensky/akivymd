@@ -21,20 +21,22 @@ Builder.load_string(
     """
 )
 
+
 class AnimatedBox(MDList, AKAddWidgetAnimationBehavior):
-    pass 
+    pass
+
 
 class AddWidgetBehavior(Screen):
-    def on_enter(self): 
+    def on_enter(self):
         self.update()
 
     def update(self, *args):
-        items=[]
+        items = []
         for x in range(20):
             items.append(OneLineListItem(
-                text= 'item %d'%x, on_release=self.update
+                text='item %d' % x, on_release=self.update
             ))
-        self.ids.list.items= items
-    
-    def on_leave(self): 
+        self.ids.list.items = items
+
+    def on_leave(self):
         self.ids.list.clear_widgets()

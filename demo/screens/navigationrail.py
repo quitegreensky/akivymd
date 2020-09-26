@@ -2,7 +2,7 @@
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 
-Builder.load_string( """
+Builder.load_string("""
 <Navigationrail>:
     name: 'Navigationrail'
 
@@ -23,17 +23,17 @@ Builder.load_string( """
 
         AKNavigationrailItem:
             text: 'Withdraw'
-            icon: 'wallet-plus'     
+            icon: 'wallet-plus'
             on_release: scr_mng.current= 'withdraw'
 
         AKNavigationrailItem:
             text: 'Deposit'
-            icon: 'wallet-plus-outline'        
+            icon: 'wallet-plus-outline'
             on_release: scr_mng.current= 'deposit'
 
         AKNavigationrailItem:
             text: 'Profile'
-            icon: 'account-circle-outline'      
+            icon: 'account-circle-outline'
             on_release: scr_mng.current= 'profile'
 
         AKNavigationrailCustomItem:
@@ -59,7 +59,8 @@ Builder.load_string( """
                         text: 'Profile'
                         halign: 'center'
 """
-)
+                    )
+
 
 class Navigationrail(Screen):
-    pass 
+    pass

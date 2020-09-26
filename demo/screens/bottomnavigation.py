@@ -5,13 +5,13 @@ from kivymd.toast import toast
 from akivymd.uix.bottomnavigation2 import AKBottomNavigation2, Button_Item
 
 Builder.load_string(
-'''
+    '''
 <On_active_button@Button_Item>
     icon_color: app.theme_cls.text_color
     text_color: app.theme_cls.text_color
     button_bg_color: app.theme_cls.primary_color
     mode: 'color_on_active'
-    badge_disabled: True 
+    badge_disabled: True
 
 <BottomNavigation>
     name: 'BottomNavigation'
@@ -60,19 +60,20 @@ Builder.load_string(
                 icon: 'arrow-down-bold-outline'
                 icon_color: 0.8,0,0 ,1
                 text_color: 0.8,0,0 ,1
-                button_bg_color: 1,0.6,0.6 ,1    
-                badge_disabled: True 
+                button_bg_color: 1,0.6,0.6 ,1
+                badge_disabled: True
 
         AKBottomNavigation:
             items: root.bottomnavigation_items
 '''
 )
 
+
 class BottomNavigation(Screen):
 
-    bottomnavigation_items=[
-        {'icon':'android' , 'text': 'android' , 'on_release': lambda x: None },
-        {'icon':'menu' , 'text': 'menu' , 'on_release': lambda x: None },
-        {'icon':'account' , 'text': 'account' , 'on_release': lambda x: None },
+    bottomnavigation_items = [
+        {'icon': 'android', 'text': 'android', 'on_release': lambda x: None},
+        {'icon': 'menu', 'text': 'menu', 'on_release': lambda x: None},
+        {'icon': 'account', 'text': 'account', 'on_release': lambda x: None},
 
     ]

@@ -33,7 +33,7 @@ Builder.load_string(
                 text: root.title
                 bold: True
                 size_hint_y: None
-                height: self.texture_size[1]            
+                height: self.texture_size[1]
                 theme_text_color: 'Primary'
                 font_style: 'H6'
                 halign: 'center'
@@ -41,7 +41,7 @@ Builder.load_string(
 
             MDLabel:
                 size_hint_y: None
-                height: self.texture_size[1]            
+                height: self.texture_size[1]
                 theme_text_color: 'Primary'
                 font_style: 'Body1'
                 halign: 'center'
@@ -51,16 +51,16 @@ Builder.load_string(
 <Onboarding>
     name: 'Onboarding'
     on_leave: boarding.reset()
-    
+
     BoxLayout:
         orientation: 'vertical'
         spacing: dp(10)
-        
+
         AKOnboarding:
             id: boarding
             on_finish: root.finish_callback()
             circles_size: dp(15)
-                        
+
             MyAKOnboardingItem:
                 source: 'assets/slide_one_img.png'
                 text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book"
@@ -78,6 +78,7 @@ Builder.load_string(
 
     """
 )
+
 
 class Onboarding(Screen):
 

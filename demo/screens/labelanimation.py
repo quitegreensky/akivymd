@@ -12,7 +12,7 @@ Builder.load_string(
         MDToolbar:
             title: root.name
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
-    
+
         FloatLayout:
             MyMDIcon:
                 id: icon
@@ -20,7 +20,7 @@ Builder.load_string(
                 pos_hint: {'center_x': .5, 'center_y': .4}
                 halign: 'center'
                 font_size: dp(100)
-                size_hint: None, None 
+                size_hint: None, None
                 size: dp(100), dp(100)
                 theme_text_color: 'Primary'
 
@@ -30,27 +30,30 @@ Builder.load_string(
                 pos_hint: {'center_x': .5, 'center_y': .6}
                 halign: 'center'
                 font_size: dp(20)
-                size_hint: None, None 
+                size_hint: None, None
                 size: dp(100), dp(100)
                 theme_text_color: 'Primary'
 
             MDRaisedButton:
                 text: 'Press'
                 pos_hint: {'center_x': .5, 'center_y': .1}
-                on_release: 
-                    if text.text== 'menu':  text.text='arrow-left' 
+                on_release:
+                    if text.text== 'menu':  text.text='arrow-left'
                     else: text.text='menu'
 
-                    if icon.icon== 'menu':  icon.icon='arrow-left' 
-                    else: icon.icon='menu'            
+                    if icon.icon== 'menu':  icon.icon='arrow-left'
+                    else: icon.icon='menu'
         """
 )
 
+
 class LabelAnimation(Screen):
-    pass 
+    pass
+
 
 class MyMDIcon(MDIcon, AKAnimationIconBehavior):
-    pass 
+    pass
+
 
 class MyMDLabel(MDLabel, AKAnimationTextBehavior):
-    pass 
+    pass

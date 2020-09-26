@@ -4,8 +4,8 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.carousel import Carousel
 from kivy.uix.widget import Widget
 from kivymd.theming import ThemableBehavior
-from kivy.properties import  NumericProperty, BooleanProperty, StringProperty, ListProperty
-from kivy.core.window import Window 
+from kivy.properties import NumericProperty, BooleanProperty, StringProperty, ListProperty
+from kivy.core.window import Window
 from kivy.animation import Animation
 from kivy.event import EventDispatcher
 from kivy.metrics import dp
@@ -13,17 +13,17 @@ from kivy.metrics import dp
 Builder.load_string(
     """
 <ItemCircles>:
-    size_hint_x: None 
+    size_hint_x: None
     canvas.before:
         Color:
             rgba: root._circles_color
-        Line:  
+        Line:
             circle: [ self.pos[0]+self.width/2, self.pos[1]+self.height/2, self.width/2]
             width: dp(1)
 
 <AKOnboardingItem>:
 
-<AKOnboarding>: 
+<AKOnboarding>:
     orientation: 'vertical'
 
     MyCarousel:
@@ -34,7 +34,7 @@ Builder.load_string(
 
     FloatLayout:
         id: rounded_box
-        size_hint_y: None 
+        size_hint_y: None
         height: circles_box.y+ circles_box.height*2
         canvas.before:
             Color:
@@ -42,23 +42,23 @@ Builder.load_string(
                 a: 1 if root.show_bottom_bar else 0
             RoundedRectangle:
                 pos: self.pos
-                size: self.size   
+                size: self.size
                 radius: root.bottom_bar_radius
 
         Widget:
-            id: ghost_circle     
-            size_hint: None, None 
+            id: ghost_circle
+            size_hint: None, None
             canvas.before:
                 Color:
                     rgba: root.circles_color if root.circles_color else root.theme_cls.primary_color
-                Ellipse:  
+                Ellipse:
                     pos: self.pos
-                    size: self.size 
+                    size: self.size
 
         BoxLayout:
             id: circles_box
             pos: rounded_box.width/2-self.width/2 , rounded_box.height/2-self.height/2
-            size_hint: None,None 
+            size_hint: None,None
             size: self.minimum_width , root.circles_size
             spacing: root.circles_size/2
 
@@ -75,12 +75,13 @@ Builder.load_string(
 
 
 class ItemCircles(ThemableBehavior, Widget):
-    _circles_color= ListProperty(None) 
+    _circles_color = ListProperty(None)
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-class MyCarousel(ThemableBehavior,Carousel):
+
+class MyCarousel(ThemableBehavior, Carousel):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -88,77 +89,89 @@ class MyCarousel(ThemableBehavior,Carousel):
         Window.bind(on_resize=self._on_resize)
 
     def _add_circles(self):
-        self.total_circles= len(self.slides)-1
+        self.total_circles = len(self.slides) - 1
 
         if self.parent.circles_color:
-            circle_color= self.parent.circles_color
+            circle_color = self.parent.circles_color
         else:
-            circle_color= self.theme_cls.primary_color
+            circle_color = self.theme_cls.primary_color
 
-        for _ in range(self.total_circles+1):
-            self.parent.ids.circles_box.add_widget(ItemCircles(width= self.parent.circles_size, _circles_color=circle_color))
+        for _ in range(self.total_circles + 1):
+            self.parent.ids.circles_box.add_widget(
+                ItemCircles(
+                    width=self.parent.circles_size,
+                    _circles_color=circle_color))
 
-        self._current_circle= self.total_circles
-        Clock.schedule_once(lambda x: self._set_current_circle(animation=False))
+        self._current_circle = self.total_circles
+        Clock.schedule_once(
+            lambda x: self._set_current_circle(
+                animation=False))
 
     def on_size(self, *args):
-        Clock.schedule_once(lambda x:self._set_current_circle(animation=False))
+        Clock.schedule_once(
+            lambda x: self._set_current_circle(
+                animation=False))
         return super().on_size(*args)
 
     def reset(self):
-        self._current_circle= self.total_circles
+        self._current_circle = self.total_circles
         self._set_current_circle()
         self.load_slide(self.slides[0])
 
     def _set_current_circle(self, mode=None, animation=True):
-        if mode=='next':
-            if self._current_circle>0:
-                self._current_circle -=1
+        if mode == 'next':
+            if self._current_circle > 0:
+                self._current_circle -= 1
             else:
                 self.parent._on_finish_dispatch()
 
-        elif mode=='previous':
-            if self._current_circle<self.total_circles:
-                self._current_circle +=1 
+        elif mode == 'previous':
+            if self._current_circle < self.total_circles:
+                self._current_circle += 1
         if animation:
-            width= self.parent.ids.ghost_circle.width
-            anim= Animation(
-                pos=self.parent.ids.circles_box.children[self._current_circle].pos, 
-                t= self.anim_type, 
-                duration= self.anim_move_duration
-                )
+            width = self.parent.ids.ghost_circle.width
+            anim = Animation(
+                pos=self.parent.ids.circles_box.children[self._current_circle].pos,
+                t=self.anim_type,
+                duration=self.anim_move_duration
+            )
             anim.start(self.parent.ids.ghost_circle)
         else:
-            self.parent.ids.ghost_circle.pos= self.parent.ids.circles_box.children[self._current_circle].pos
+            self.parent.ids.ghost_circle.pos = self.parent.ids.circles_box.children[
+                self._current_circle].pos
 
     def on_touch_up(self, touch):
-        if abs(self._offset)> self.width*self.min_move:
+        if abs(self._offset) > self.width * self.min_move:
 
-            if self._offset>0:  ## previous screen
+            if self._offset > 0:  # previous screen
                 self._set_current_circle('previous')
 
-            elif self._offset<0:  ## next screen
+            elif self._offset < 0:  # next screen
                 self._set_current_circle('next')
-        
+
         return super().on_touch_up(touch)
 
-    def _on_resize(self,*args):
-        Clock.schedule_once(lambda x: self._set_current_circle(animation=False))
+    def _on_resize(self, *args):
+        Clock.schedule_once(
+            lambda x: self._set_current_circle(
+                animation=False))
+
 
 class AKOnboardingItem(BoxLayout):
-    pass 
+    pass
 
-class AKOnboarding(ThemableBehavior,BoxLayout,EventDispatcher):
 
-    circles_size= NumericProperty(dp(20))
-    skip_button= BooleanProperty(True)
-    min_move= NumericProperty(0.05)
-    anim_type= StringProperty('out_quad')
-    anim_move_duration= NumericProperty(0.2)
-    bottom_bar_radius= ListProperty([dp(20), dp(20),0 ,0])
-    show_bottom_bar= BooleanProperty(True)
-    bottom_bar_color= ListProperty(None)
-    circles_color= ListProperty(None)
+class AKOnboarding(ThemableBehavior, BoxLayout, EventDispatcher):
+
+    circles_size = NumericProperty(dp(20))
+    skip_button = BooleanProperty(True)
+    min_move = NumericProperty(0.05)
+    anim_type = StringProperty('out_quad')
+    anim_move_duration = NumericProperty(0.2)
+    bottom_bar_radius = ListProperty([dp(20), dp(20), 0, 0])
+    show_bottom_bar = BooleanProperty(True)
+    bottom_bar_color = ListProperty(None)
+    circles_color = ListProperty(None)
 
     def __init__(self, **kwargs):
         super(AKOnboarding, self).__init__(**kwargs)
@@ -166,7 +179,7 @@ class AKOnboarding(ThemableBehavior,BoxLayout,EventDispatcher):
         Clock.schedule_once(lambda x: self._update())
 
     def add_widget(self, widget, index=0, canvas=None):
-        if issubclass(widget.__class__ ,AKOnboardingItem):
+        if issubclass(widget.__class__, AKOnboardingItem):
             self.ids.carousel.add_widget(widget)
         else:
             super().add_widget(widget, index=index, canvas=canvas)
@@ -174,14 +187,14 @@ class AKOnboarding(ThemableBehavior,BoxLayout,EventDispatcher):
     def _on_finish_dispatch(self):
         self.dispatch('on_finish')
 
-    def on_finish(self,*args):
-        pass 
-    
+    def on_finish(self, *args):
+        pass
+
     def reset(self):
         return self.ids.carousel.reset()
 
-    def on_size(self,*args):
-        self.ids.carousel.size= self.size 
+    def on_size(self, *args):
+        self.ids.carousel.size = self.size
 
     def _update(self):
-        self.ids.ghost_circle.size= [self.circles_size, self.circles_size]
+        self.ids.ghost_circle.size = [self.circles_size, self.circles_size]

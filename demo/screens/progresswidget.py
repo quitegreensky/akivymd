@@ -23,7 +23,7 @@ Builder.load_string(
             AKCircularProgress:
                 id: progress_percent
                 pos_hint: {'center_x': .5, 'center_y': .5}
-                size_hint: None, None 
+                size_hint: None, None
                 size: dp(100), dp(100)
                 percent_type: 'percent'
                 start_deg: 180
@@ -44,11 +44,11 @@ Builder.load_string(
                     text: '100'
                     on_release: progress_percent.current_percent= 100
                 BoxLayout:
-                
+
             AKCircularProgress:
                 id: progress_relative
                 pos_hint: {'center_x': .5, 'center_y': .5}
-                size_hint: None, None 
+                size_hint: None, None
                 size: dp(100), dp(100)
                 percent_type: 'percent'
                 start_deg: 240
@@ -75,5 +75,6 @@ Builder.load_string(
     """
 )
 
+
 class ProgressWidget(Screen):
-    pass 
+    pass

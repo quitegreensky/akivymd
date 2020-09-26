@@ -13,13 +13,13 @@ Builder.load_string(
         MDToolbar:
             title: root.name
             left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
-    
+
         FloatLayout:
             MDRaisedButton:
                 text: 'Open'
                 on_release: root.open()
                 pos_hint: {'center_x': .5, 'center_y': .5}
-            
+
             MDLabel:
                 id: date
                 text: ''
@@ -30,17 +30,18 @@ Builder.load_string(
 
     """)
 
+
 class DatePicker(Screen):
 
     def __init__(self, **kw):
         super().__init__(**kw)
-        self.date= AKDatePicker(callback=self.callback)
+        self.date = AKDatePicker(callback=self.callback)
 
     def callback(self, date):
         if not date:
-            return 
-        
-        self.ids.date.text= '%d / %d / %d'%(date.day, date.month, date.year)
+            return
+
+        self.ids.date.text = '%d / %d / %d' % (date.day, date.month, date.year)
 
     def open(self):
         self.date.open()
