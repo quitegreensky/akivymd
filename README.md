@@ -9,22 +9,19 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install package
 ```bash
 # Latest version
 pip install akivymd
-
 # Latest changes 
 pip install git+https://github.com/quitegreensky/akivymd.git
 ```
 
-- In this case you must add the following to your ```buildozer.spec```
+In this case you must add the following to your ```buildozer.spec```
 ```
 # Latest version
 requirements =  kivy,kivymd, akivymd
-
 # Latest changes 
 requirements =  kivy,kivymd, git+https://github.com/quitegreensky/akivymd.git
 ```
 
 ## Usage
-
 You can find usage examples in the demo app.
  
 ## Examples
@@ -33,7 +30,6 @@ You can find usage examples in the demo app.
 </p>
 
 ## Contributing
-
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
