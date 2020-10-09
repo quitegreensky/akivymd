@@ -24,7 +24,7 @@ def get_package_info():
         for line in info:
             for info in info_dic.keys():
                 if line.startswith(info):
-                    info_dic[info] = line.split('=')[1]
+                    info_dic[info] = eval(line.split('=')[1])
                     continue
     return info_dic
 
