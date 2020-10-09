@@ -1,3 +1,4 @@
+from kivy.factory import Factory
 from kivy.lang.builder import Builder
 from kivy.properties import ListProperty, StringProperty, NumericProperty, OptionProperty, ObjectProperty
 from kivy.uix.boxlayout import BoxLayout
@@ -21,12 +22,12 @@ Builder.load_string(
     size_hint: None , None
     background: '%s/transparent.png'%images_path
     background_color: 0,0,0,0
-    elevation: 10
     size: root.size_portrait if root._orientation == 'portrait'\
         else root.size_landscape
 
 
-    BoxLayout:
+    MainAlertBox:
+        elevation: root.elevation
 
         orientation: 'vertical' if root._orientation == 'portrait' \
             else 'horizontal'
@@ -83,8 +84,10 @@ Builder.load_string(
     """
 )
 
+class MainAlertBox(RectangularElevationBehavior, BoxLayout):
+    pass 
 
-class AKAlertDialog(RectangularElevationBehavior, BaseDialog):
+class AKAlertDialog(BaseDialog):
     radius = NumericProperty('10dp')
     bg_color = ListProperty()
     size_portrait = ListProperty(['250dp', '350dp'])
@@ -103,6 +106,7 @@ class AKAlertDialog(RectangularElevationBehavior, BaseDialog):
     progress_interval = NumericProperty(None)
     progress_width = NumericProperty('2dp')
     progress_color = ListProperty()
+    elevation = NumericProperty(10)
     content_cls = ObjectProperty()
     opening_duration = NumericProperty(0.2)
     dismiss_duration = NumericProperty(0.2)
@@ -115,17 +119,75 @@ class AKAlertDialog(RectangularElevationBehavior, BaseDialog):
         Window.bind(on_resize=self._get_orientation)
         self.register_event_type('on_progress_finish')
         Clock.schedule_once(self._update)
-        Window.bind(on_touch_down=self._window_touch_down)
 
     def _update(self, *args):
         self._get_orientation()
+        Window.bind(on_touch_down=self._window_touch_down)
+        Window.bind(on_touch_up=self._window_touch_up)
+        Window.bind(on_touch_move=self._window_touch_move)
+
+    def _collide_point_with_modal(self, pos):
+        if self.attach_to:
+            raise NotImplementedError
+        for widget in Window.children:
+            if issubclass(widget.__class__, ModalView):
+                if widget.collide_point(pos[0], pos[1]):
+                    return widget
+        return False
+
+    def _get_top_modal(self):
+        for widget in Window.children:
+            if issubclass(widget.__class__, ModalView):
+                return widget
 
     def on_touch_down(self, touch):
-        MDApp.get_running_app().root.dispatch('on_touch_down', touch)
+        pos = touch.pos
+        if self.collide_point(pos[0], pos[1]):
+            return super().on_touch_down(touch)
+        if self._get_top_modal() == self:
+            MDApp.get_running_app().root.dispatch('on_touch_down', touch)
         return super().on_touch_down(touch)
 
+    def on_touch_up(self, touch):
+        pos = touch.pos
+        if self.collide_point(pos[0], pos[1]):
+            return super().on_touch_up(touch)
+        if self._get_top_modal() == self:
+            MDApp.get_running_app().root.dispatch('on_touch_up', touch)
+        return super().on_touch_up(touch)
+
+    def on_touch_move(self, touch):
+        pos = touch.pos
+        if self.collide_point(pos[0], pos[1]):
+            return super().on_touch_move(touch)
+
+        if self._get_top_modal() == self:
+            MDApp.get_running_app().root.dispatch('on_touch_move', touch)
+        return super().on_touch_move(touch)
+
     def _window_touch_down(self, instance, touch):
-        self.dispatch('on_touch_down', touch)
+        pos = touch.pos
+        collide_modal = self._collide_point_with_modal(pos)
+        if collide_modal == self and self._get_top_modal == self:
+            return
+        if collide_modal == self and self._get_top_modal != self:
+            return collide_modal.dispatch('on_touch_down', touch)
+
+    def _window_touch_up(self, instance, touch):
+        pos = touch.pos
+        collide_modal = self._collide_point_with_modal(pos)
+        if collide_modal == self and self._get_top_modal == self:
+            return
+        if collide_modal == self and self._get_top_modal != self:
+            return collide_modal.dispatch('on_touch_up', touch)
+
+    def _window_touch_move(self, instance, touch):
+        pos = touch.pos
+        collide_modal = self._collide_point_with_modal(pos)
+        if collide_modal == self and self._get_top_modal == self:
+            return
+        if collide_modal == self and self._get_top_modal != self:
+            return collide_modal.dispatch('on_touch_move', touch)
 
     def _get_orientation(self, *args):
         if self.fixed_orientation:
@@ -150,9 +212,9 @@ class AKAlertDialog(RectangularElevationBehavior, BaseDialog):
         self._opening_animation()
         return super().on_pre_open()
 
-    def on_pre_dismiss(self):
+    def on_dismiss(self):
         self._dismiss_animation()
-        return super().on_pre_dismiss()
+        return super().on_dismiss()
 
     def _opening_animation(self):
         self.opacity = 0

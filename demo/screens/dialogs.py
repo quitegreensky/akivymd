@@ -86,7 +86,7 @@ Builder.load_string("""
         pos_hint: {'center_x': .5}
         md_bg_color: [1,0.75,0,1]
 
-<BottomRight@BoxLayout>:
+<Notification@BoxLayout>:
     padding: dp(10)
     MDLabel:
         text: '1 New Notification'
@@ -182,7 +182,7 @@ class Dialogs(Screen):
             header_width_landscape='70dp'
         )
         dialog.bind(on_progress_finish=dialog.dismiss)
-        content = Factory.BottomRight()
+        content = Factory.Notification()
         content.ids.button.bind(on_release=dialog.dismiss)
         dialog.content_cls = content
         dialog.open()
@@ -194,13 +194,13 @@ class Dialogs(Screen):
             fixed_orientation='landscape',
             pos_hint={'center_x': 0.5, 'top': 0.95},
             radius=0,
-            size_landscape=['300', '70dp'],
+            size_landscape=['300dp', '70dp'],
             header_font_size='40dp',
             header_width_landscape='50dp',
             progress_color=[0.4, 0.1, 1, 1]
         )
         dialog.bind(on_progress_finish=dialog.dismiss)
-        content = Factory.BottomRight()
+        content = Factory.Notification()
         content.ids.button.bind(on_release=dialog.dismiss)
         dialog.content_cls = content
         dialog.open()
