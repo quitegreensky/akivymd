@@ -100,10 +100,10 @@ class AKNavigationrailItem(
         ThemableBehavior, ButtonBehavior, AKNavigationrailItemBase):
     icon = StringProperty()
     text = StringProperty()
-    text_color = ListProperty()
-    icon_color = ListProperty()
-    active_text_color = ListProperty()
-    active_icon_color = ListProperty()
+    text_color = ListProperty([0, 0, 0, 0])
+    icon_color = ListProperty([0,0,0,0])
+    active_text_color = ListProperty([0, 0, 0, 0])
+    active_icon_color = ListProperty([0, 0, 0, 0])
     active = BooleanProperty(False)
 
     item_text_opacity = NumericProperty(1)
@@ -113,21 +113,21 @@ class AKNavigationrailItem(
         Clock.schedule_once(lambda x: self._update())
 
     def _update(self):
-        self.root = self.parent.parent
 
-        if not self.active_text_color:
+        if self.active_text_color == [0, 0, 0, 0]:
             self.active_text_color = self.theme_cls.primary_color
 
-        if not self.text_color:
+        if self.text_color == [0, 0, 0, 0]:
             self.text_color = self.theme_cls.text_color
 
-        if not self.active_icon_color:
+        if self.active_icon_color == [0, 0, 0, 0]:
             self.active_icon_color = self.theme_cls.primary_color
 
-        if not self.icon_color:
+        if self.icon_color == [0, 0, 0, 0]:
             self.icon_color = self.theme_cls.text_color
 
     def on_release(self):
+        self.root = self.parent.parent
         index = self.root.ids.items_box.children.index(self)
         self.root.set_current(index, item_index=False)
         return super().on_release()

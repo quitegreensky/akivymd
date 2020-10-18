@@ -55,3 +55,4 @@ temp
 .temp
 .pytest_cache
 .coverage
+*.rst
