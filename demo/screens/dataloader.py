@@ -1,5 +1,4 @@
-from akivymd.uix.imageloader import AKImageLoader
-from akivymd.uix.labelloader import AKLabelLoader
+from akivymd.uix.loaders import AKImageLoader, AKLabelLoader
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.uix.card import MDCard
