@@ -1,17 +1,34 @@
-from kivymd.app import MDApp
-from kivy.lang import Builder
+import re
+
 from kivy.factory import Factory
-from kivy.properties import StringProperty
-from kivymd.uix.list import OneLineAvatarListItem
-##
-from screens import bottomnavigation, spinners, dataloader, selectionlist, piechart,\
-    imageviewer, onboarding, progressbutton, silverappbar, badgelayout, addwidget, bottomappbar,\
-    labelanimation, statusbarcolor, datepicker, progresswidget, hintwidget, windows, navigationrail,\
-    dialogs
+from kivy.lang import Builder
+from kivymd.app import MDApp
 
 from akivymd.uix.statusbarcolor import change_statusbar_color
+from screens import (
+    addwidget,
+    badgelayout,
+    bottomappbar,
+    bottomnavigation,
+    dataloader,
+    datepicker,
+    dialogs,
+    hintwidget,
+    imageviewer,
+    labelanimation,
+    navigationrail,
+    onboarding,
+    piechart,
+    progressbutton,
+    progresswidget,
+    selectionlist,
+    silverappbar,
+    spinners,
+    statusbarcolor,
+    windows,
+)
 
-kv = '''
+kv = """
 <MyMenuItem@OneLineAvatarListItem>
     IconLeftWidget:
         icon: 'language-python'
@@ -31,6 +48,7 @@ Screen:
                     MDLabel:
                         text: app.intro
                         theme_text_color: 'Primary'
+                        halign: 'center'
 
     MDNavigationDrawer:
         id: navdrawer
@@ -46,25 +64,40 @@ Screen:
                 MDList:
                     id: menu_list
 
-'''
+"""
 
 
 class DemoApp(MDApp):
 
-    screens = [
-        'BottomNavigation', 'Spinners', 'Dataloader', 'Selectionlist', 'Piechart', 'ImageViewer',
-        'Onboarding', 'ProgressButton', 'SilverAppbar', 'BadgeLayout', 'AddWidgetBehavior', 'BottomAppbar',
-        'LabelAnimation', 'StatusbarColor', 'DatePicker', 'ProgressWidget', 'HintWidget', 'Windows', 'Navigationrail',
-        'Dialogs'
-
-    ]
-    intro = """here is where you can find all of the widgets. take a look at screens folder to find exmples of how to use them. I will gradually add more and more Awesome widets to this project. Stay tuned!"""
+    screens = {
+        "BottomNavigation": "Bottom Navigation",
+        "Spinners": "Spinners",
+        "Dataloader": "Dataloader",
+        "Selectionlist": "Selectionlist",
+        "Piechart": "Piechart",
+        "ImageViewer": "Image Viewer",
+        "Onboarding": "Onboarding",
+        "ProgressButton": "Progress Button",
+        "SilverAppbar": "Silver Appbar",
+        "BadgeLayout": "Badge Layout",
+        "AddWidgetBehavior": "AddWidget Behavior",
+        "BottomAppbar": "Bottom Appbar",
+        "LabelAnimation": "Label Animation",
+        "StatusbarColor": "Statusbar Color",
+        "DatePicker": "Date Picker",
+        "ProgressWidget": "Progress Widget",
+        "HintWidget": "Hint Widget",
+        "Windows": "Windows",
+        "Navigationrail": "Navigationrail",
+        "Dialogs": "Dialogs",
+    }
+    intro = """Here is where you can find all of the widgets. Take a look at screens folder to find examples of how to use them. We will gradually add more and more Awesome widgets to this project. Stay tuned!"""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.theme_cls.primary_palette = 'Teal'
-        self.theme_cls.theme_style = 'Light'
-        self.title = 'Awesome KivyMD'
+        self.theme_cls.primary_palette = "Teal"
+        self.theme_cls.theme_style = "Light"
+        self.title = "Awesome KivyMD"
         change_statusbar_color(self.theme_cls.primary_color)
 
     def build(self):
@@ -73,29 +106,28 @@ class DemoApp(MDApp):
 
     def on_start(self):
 
-        for screen in self.screens:
-            self.mainkv.ids.sm.add_widget(eval('Factory.%s()' % screen))
+        for screen in self.screens.keys():
+            self.mainkv.ids.sm.add_widget(eval("Factory.%s()" % screen))
 
-        for list_item in self.screens:
-            self.mainkv.ids.menu_list.add_widget(MyMenuItem(
-                text=list_item, on_release=self.list_menu_callback
-            ))
+        for list_item in self.screens.values():
+            self.mainkv.ids.menu_list.add_widget(
+                Factory.MyMenuItem(
+                    text=list_item, on_release=self.list_menu_callback
+                )
+            )
 
     def list_menu_callback(self, instance):
-        self.show_screen(instance.text)
-        self.mainkv.ids.navdrawer.set_state('close')
+        screen_name = re.sub(" ", "", instance.text)
+        self.show_screen(screen_name)
+        self.mainkv.ids.navdrawer.set_state("close")
 
-    def show_screen(self, name, mode=''):
-        if mode == 'back':
-            self.mainkv.ids.sm.transition.direction = 'right'
+    def show_screen(self, name, mode=""):
+        if mode == "back":
+            self.mainkv.ids.sm.transition.direction = "right"
         else:
-            self.mainkv.ids.sm.transition.direction = 'left'
+            self.mainkv.ids.sm.transition.direction = "left"
         self.mainkv.ids.sm.current = name
         return True
-
-
-class MyMenuItem(OneLineAvatarListItem):
-    pass
 
 
 DemoApp().run()
