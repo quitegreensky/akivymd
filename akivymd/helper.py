@@ -1,10 +1,10 @@
-from math import cos, sin, radians
+from math import cos, radians, sin
 
 
 def point_on_circle(degree, center, dis):
-    '''
-        Finding the x,y coordinates on circle, based on given angle
-    '''
+    """
+    Finding the x,y coordinates on circle, based on given angle
+    """
 
     if 0 <= degree <= 90:
         degree = 90 - degree
