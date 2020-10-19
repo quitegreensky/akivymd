@@ -1,10 +1,15 @@
-from kivy.lang.builder import Builder
-from kivy.uix.widget import Widget
-from kivy.properties import NumericProperty, ListProperty, StringProperty, BooleanProperty
-from kivymd.theming import ThemableBehavior
 from kivy.animation import Animation
 from kivy.clock import Clock
-from kivy.metrics import dp
+from kivy.lang.builder import Builder
+from kivy.properties import (
+    BooleanProperty,
+    ListProperty,
+    NumericProperty,
+    StringProperty,
+)
+from kivy.uix.widget import Widget
+from kivymd.theming import ThemableBehavior
+
 Builder.load_string("""
 <AKSpinnerBase>:
     size_hint: None, None
