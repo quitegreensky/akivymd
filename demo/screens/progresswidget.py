@@ -1,6 +1,5 @@
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
-from akivymd.uix.progresswidget import AKCircularProgress
 
 Builder.load_string(
     """
@@ -14,7 +13,7 @@ Builder.load_string(
         orientation: 'vertical'
         MDToolbar:
             title: root.name
-            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back')]]
 
         BoxLayout:
             orientation: 'vertical'
@@ -71,8 +70,7 @@ Builder.load_string(
                     text: '25'
                     on_release: progress_relative.current_percent= 25
                 BoxLayout:
-
-    """
+"""
 )
 
 

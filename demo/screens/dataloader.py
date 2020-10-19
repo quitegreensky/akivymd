@@ -1,13 +1,13 @@
-from akivymd.uix.loaders import AKImageLoader, AKLabelLoader
-from kivy.lang import Builder
-from kivy.uix.screenmanager import Screen
-from kivymd.uix.card import MDCard
-from kivy.uix.image import AsyncImage
-from kivy.network.urlrequest import UrlRequest
 import threading
+
+from kivy.lang import Builder
+from kivy.network.urlrequest import UrlRequest
+from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
+from kivymd.uix.card import MDCard
+
 Builder.load_string(
-    '''
+    """
 <DataloaderLabel@AKLabelLoader>:
     size_hint_y: None
     height: dp(20)
@@ -54,7 +54,7 @@ Builder.load_string(
         orientation: 'vertical'
         MDToolbar:
             title: root.name
-            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back')]]
         ScrollView:
             MDBoxLayout:
                 adaptive_height: True
@@ -78,58 +78,53 @@ Builder.load_string(
                 text: 'Clear Data'
                 on_release:
                     root.clear_data()
-'''
+"""
 )
 
 
 class Dataloader(Screen):
-
     def get_date(self):
         t = threading.Thread(target=self.send_request)
         t.start()
 
     def set_user1(self, *args):
         user1 = args[1]
-        self.ids.user1.avatar = 'https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png'
-        self.ids.user1.name = user1['name']
-        self.ids.user1.email = user1['email']
-        self.ids.user1.website = user1['website']
+        self.ids.user1.avatar = "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"
+        self.ids.user1.name = user1["name"]
+        self.ids.user1.email = user1["email"]
+        self.ids.user1.website = user1["website"]
 
     def set_user2(self, *args):
         user2 = args[1]
-        self.ids.user2.name = user2['name']
-        self.ids.user2.email = user2['email']
-        self.ids.user2.website = user2['website']
-        self.ids.user2.avatar = 'https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png'
+        self.ids.user2.name = user2["name"]
+        self.ids.user2.email = user2["email"]
+        self.ids.user2.website = user2["website"]
+        self.ids.user2.avatar = "https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png"
 
     def send_request(self):
-        url = 'https://jsonplaceholder.typicode.com/'
+        url = "https://jsonplaceholder.typicode.com/"
 
-        user1 = UrlRequest(
-            url + 'users/1',
-            self.set_user1,
-            on_error=self.got_error,
-            timeout=4)
-        user2 = UrlRequest(
-            url + 'users/2',
-            self.set_user2,
-            on_error=self.got_error,
-            timeout=4)
+        UrlRequest(
+            url + "users/1", self.set_user1, on_error=self.got_error, timeout=4
+        )
+        UrlRequest(
+            url + "users/2", self.set_user2, on_error=self.got_error, timeout=4
+        )
         return True
 
     def got_error(self, *args):
-        error_msg = 'Timeout.Check connection'
+        error_msg = "Timeout.Check connection"
         return toast(error_msg)
 
     def clear_data(self):
-        self.ids.user2.name = ''
-        self.ids.user2.email = ''
-        self.ids.user2.website = ''
-        self.ids.user2.avatar = ''
-        self.ids.user1.avatar = ''
-        self.ids.user1.name = ''
-        self.ids.user1.email = ''
-        self.ids.user1.website = ''
+        self.ids.user2.name = ""
+        self.ids.user2.email = ""
+        self.ids.user2.website = ""
+        self.ids.user2.avatar = ""
+        self.ids.user1.avatar = ""
+        self.ids.user1.name = ""
+        self.ids.user1.email = ""
+        self.ids.user1.website = ""
 
 
 class Loadercard(MDCard):

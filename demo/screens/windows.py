@@ -1,5 +1,4 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.windows import AKFloatingWindow, AKFloatingWindowLayout
 from kivy.uix.screenmanager import Screen
 
 Builder.load_string(
@@ -46,9 +45,7 @@ Builder.load_string(
             MDRaisedButton:
                 text: 'Button'
                 pos_hint: {'center_x': .5, 'center_y': .5}
-
-
-    """
+"""
 )
 
 

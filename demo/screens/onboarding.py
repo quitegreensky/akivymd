@@ -1,5 +1,4 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.onboarding import AKOnboarding, AKOnboardingItem
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
 
@@ -54,7 +53,10 @@ Builder.load_string(
 
     BoxLayout:
         orientation: 'vertical'
-        spacing: dp(10)
+        spacing: dp(40)
+        MDToolbar:
+            title: root.name
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
 
         AKOnboarding:
             id: boarding
@@ -75,12 +77,10 @@ Builder.load_string(
                 source: 'assets/slide_three_img.png'
                 text: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."
                 title:'Where does it come from?'
-
-    """
+"""
 )
 
 
 class Onboarding(Screen):
-
     def finish_callback(self):
-        toast('Finish callback')
+        toast("Finish callback")

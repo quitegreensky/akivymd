@@ -1,6 +1,7 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.datepicker import AKDatePicker
 from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.datepicker import AKDatePicker
 
 Builder.load_string(
     """
@@ -12,7 +13,7 @@ Builder.load_string(
         orientation: 'vertical'
         MDToolbar:
             title: root.name
-            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back')]]
 
         FloatLayout:
             MDRaisedButton:
@@ -28,11 +29,11 @@ Builder.load_string(
                 size_hint_y: 0.2
                 pos_hint: {'center_x': .5, 'center_y': .3}
 
-    """)
+"""
+)
 
 
 class DatePicker(Screen):
-
     def __init__(self, **kw):
         super().__init__(**kw)
         self.date = AKDatePicker(callback=self.callback)
@@ -41,7 +42,7 @@ class DatePicker(Screen):
         if not date:
             return
 
-        self.ids.date.text = '%d / %d / %d' % (date.day, date.month, date.year)
+        self.ids.date.text = "%d / %d / %d" % (date.day, date.month, date.year)
 
     def open(self):
         self.date.open()

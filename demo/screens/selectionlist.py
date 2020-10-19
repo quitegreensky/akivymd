@@ -1,7 +1,8 @@
-from akivymd.uix.selectionlist import AKSelectList, AKSelectListAvatarItem
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
+
+from akivymd.uix.selectionlist import AKSelectListAvatarItem
 
 Builder.load_string(
     """
@@ -31,30 +32,31 @@ Builder.load_string(
             MDRaisedButton:
                 text: 'Select All'
                 on_release: root.select_all()
-    """
+"""
 )
 
 
 class Selectionlist(Screen):
-
     def on_enter(self):
 
         self.ids.selectionlist.clear_widgets()
         for x in range(20):
-            self.ids.selectionlist.add_widget(AKSelectListAvatarItem(
-                first_label='Item %d' % x,
-                second_label='Description for item %d' % x,
-                source='assets/logo.png'
-            ))
+            self.ids.selectionlist.add_widget(
+                AKSelectListAvatarItem(
+                    first_label="Item %d" % x,
+                    second_label="Description for item %d" % x,
+                    source="assets/logo.png",
+                )
+            )
 
     def on_leave(self):
         return self.clear_selected()
 
     def get_selected(self):
         items = self.ids.selectionlist.get_selection()
-        text = ''
+        text = ""
         for x in items:
-            text += ', %s' % x
+            text += ", %s" % x
         return toast(text)
 
     def clear_selected(self):

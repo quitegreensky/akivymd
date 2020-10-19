@@ -1,5 +1,4 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.bottomappbar import AKFloatingRoundedAppbar, AKFloatingRoundedAppbarAvatarItem, AKFloatingRoundedAppbarButtonItem
 from kivy.uix.screenmanager import Screen
 from kivymd.toast import toast
 
@@ -11,7 +10,7 @@ Builder.load_string(
         orientation: 'vertical'
         MDToolbar:
             title: root.name
-            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back')]]
 
         BoxLayout:
 
@@ -38,11 +37,10 @@ Builder.load_string(
         AKFloatingRoundedAppbarAvatarItem:
             source: 'assets/google.jpg'
             text: 'Google'
-    """
+"""
 )
 
 
 class BottomAppbar(Screen):
-
     def toast(self, x):
         return toast(x)

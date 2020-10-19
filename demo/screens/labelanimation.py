@@ -1,7 +1,11 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.behaviors.labelanimation import AKAnimationIconBehavior, AKAnimationTextBehavior
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.label import MDLabel, MDIcon
+from kivymd.uix.label import MDIcon, MDLabel
+
+from akivymd.uix.behaviors.labelanimation import (
+    AKAnimationIconBehavior,
+    AKAnimationTextBehavior,
+)
 
 Builder.load_string(
     """
@@ -11,7 +15,7 @@ Builder.load_string(
         orientation: 'vertical'
         MDToolbar:
             title: root.name
-            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back')]]
 
         FloatLayout:
             MyMDIcon:
@@ -43,7 +47,7 @@ Builder.load_string(
 
                     if icon.icon== 'menu':  icon.icon='arrow-left'
                     else: icon.icon='menu'
-        """
+"""
 )
 
 

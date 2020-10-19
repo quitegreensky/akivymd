@@ -1,8 +1,8 @@
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
-from akivymd.uix.badgelayout import AKBadgeLayout
+
 Builder.load_string(
-    '''
+    """
 <MyAKBadgeLayout@AKBadgeLayout>
     pos_hint: {'center_x': .5, 'center_y': .5}
     badgeitem_padding: dp(5)
@@ -14,7 +14,7 @@ Builder.load_string(
         orientation: 'vertical'
         MDToolbar:
             title: root.name
-            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back')]]
         BoxLayout:
             orientation: 'vertical'
             spacing: dp(20)
@@ -71,7 +71,7 @@ Builder.load_string(
 
             Widget:
 
-'''
+"""
 )
 
 

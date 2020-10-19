@@ -1,8 +1,8 @@
-
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <Navigationrail>:
     name: 'Navigationrail'
 
@@ -47,6 +47,11 @@ Builder.load_string("""
                         text: 'Withdraw'
                         halign: 'center'
 
+                    MDRectangleFlatButton:
+                        text: 'GO BACK'
+                        pos_hint: {'center_x': .5, 'center_y': .1}
+                        on_release: app.show_screen('Home','back')
+
                 Screen:
                     name: 'deposit'
                     MDLabel:
@@ -59,7 +64,7 @@ Builder.load_string("""
                         text: 'Profile'
                         halign: 'center'
 """
-                    )
+)
 
 
 class Navigationrail(Screen):

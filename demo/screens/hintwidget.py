@@ -1,8 +1,5 @@
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
-from akivymd.uix.hintwidget import AKHintWidget, AKHintWidgetItem
-from kivy.uix.boxlayout import BoxLayout
-from kivymd.uix.button import MDRaisedButton
 
 Builder.load_string(
     """
@@ -38,7 +35,7 @@ Builder.load_string(
         orientation: 'vertical'
         MDToolbar:
             title: root.name
-            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back') ]]
+            left_action_items:[['arrow-left' , lambda x:app.show_screen('Home','back')]]
 
         FloatLayout:
 
@@ -84,7 +81,8 @@ Builder.load_string(
                         text: 'Button'
                         pos_hint: {'center_x': .5}
 
-        """)
+"""
+)
 
 
 class HintWidget(Screen):
