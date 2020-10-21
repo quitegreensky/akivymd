@@ -1,5 +1,9 @@
 import re
-
+import akivymd
+"""
+this line makes all the screens automatically register factory
+Use this line to all your projects (main.py)
+"""
 from kivy.factory import Factory
 from kivy.lang import Builder
 from kivymd.app import MDApp
