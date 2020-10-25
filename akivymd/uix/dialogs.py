@@ -14,13 +14,11 @@ from kivymd.app import MDApp
 
 Builder.load_string(
     """
-#:import images_path kivymd.images_path
 #:import md_icons kivymd.icon_definitions.md_icons
 
 <AKAlertDialog>:
     auto_dismiss: False
     size_hint: None , None
-    background: '%s/transparent.png'%images_path
     background_color: 0,0,0,0
     size: root.size_portrait if root._orientation == 'portrait'\
         else root.size_landscape
