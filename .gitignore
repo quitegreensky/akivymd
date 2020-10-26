@@ -56,3 +56,4 @@ temp
 .pytest_cache
 .coverage
 *.rst
+test.py
