@@ -21,6 +21,7 @@ from screens import (
     piechart,
     progressbutton,
     progresswidget,
+    rating,
     selectionlist,
     silverappbar,
     spinners,
@@ -89,6 +90,7 @@ class DemoApp(MDApp):
         "Windows",
         "Navigationrail",
         "Dialogs",
+        "Rating",
     ]
 
     intro = "here is where you can find all of the widgets. take a look at screens folder to find exmples of how to use them. I will gradually add more and more Awesome widets to this project. Stay tuned!"
