@@ -1,6 +1,7 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.windows import AKFloatingWindow, AKFloatingWindowLayout
 from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.windows import AKFloatingWindow, AKFloatingWindowLayout
 
 Builder.load_string(
     """

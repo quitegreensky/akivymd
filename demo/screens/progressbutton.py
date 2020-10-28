@@ -1,9 +1,11 @@
-from kivy.lang.builder import Builder
-from akivymd.uix.progressbutton import AKProgressbutton
-from kivy.uix.screenmanager import Screen
-from kivymd.uix.button import MDFillRoundFlatIconButton
-from threading import Thread
 import time
+from threading import Thread
+
+from kivy.lang.builder import Builder
+from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.progressbutton import AKProgressbutton
+from kivymd.uix.button import MDFillRoundFlatIconButton
 
 Builder.load_string(
     """
@@ -26,11 +28,11 @@ Builder.load_string(
                 id: progressbutton_failure
                 pos_hint: {'center_x': .5, 'center_y':.3}
                 button: MDFillRoundFlatIconButton(text='Start', on_release= root.failure, icon='language-python')
-    """)
+    """
+)
 
 
 class ProgressButton(Screen):
-
     def __init__(self, **kw):
         super().__init__(**kw)
 

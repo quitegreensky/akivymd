@@ -1,7 +1,8 @@
 from kivy.lang.builder import Builder
-from kivy.uix.screenmanager import Screen
-from akivymd.uix.hintwidget import AKHintWidget, AKHintWidgetItem
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.hintwidget import AKHintWidget, AKHintWidgetItem
 from kivymd.uix.button import MDRaisedButton
 
 Builder.load_string(
@@ -84,7 +85,8 @@ Builder.load_string(
                         text: 'Button'
                         pos_hint: {'center_x': .5}
 
-        """)
+        """
+)
 
 
 class HintWidget(Screen):

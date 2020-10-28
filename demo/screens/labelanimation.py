@@ -1,7 +1,11 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.behaviors.labelanimation import AKAnimationIconBehavior, AKAnimationTextBehavior
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.label import MDLabel, MDIcon
+
+from akivymd.uix.behaviors.labelanimation import (
+    AKAnimationIconBehavior,
+    AKAnimationTextBehavior,
+)
+from kivymd.uix.label import MDIcon, MDLabel
 
 Builder.load_string(
     """

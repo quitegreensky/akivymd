@@ -1,7 +1,8 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.behaviors.addwidget import AKAddWidgetAnimationBehavior
 from kivy.uix.screenmanager import Screen
-from kivymd.uix.list import OneLineListItem, MDList
+
+from akivymd.uix.behaviors.addwidget import AKAddWidgetAnimationBehavior
+from kivymd.uix.list import MDList, OneLineListItem
 
 Builder.load_string(
     """
@@ -33,9 +34,9 @@ class AddWidgetBehavior(Screen):
     def update(self, *args):
         items = []
         for x in range(20):
-            items.append(OneLineListItem(
-                text='item %d' % x, on_release=self.update
-            ))
+            items.append(
+                OneLineListItem(text="item %d" % x, on_release=self.update)
+            )
         self.ids.list.items = items
 
     def on_leave(self):

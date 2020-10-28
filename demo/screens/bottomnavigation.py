@@ -1,11 +1,12 @@
-from akivymd.uix.bottomnavigation import AKBottomNavigation
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
-from kivymd.toast import toast
+
+from akivymd.uix.bottomnavigation import AKBottomNavigation
 from akivymd.uix.bottomnavigation2 import AKBottomNavigation2, Button_Item
+from kivymd.toast import toast
 
 Builder.load_string(
-    '''
+    """
 <On_active_button@Button_Item>
     icon_color: app.theme_cls.text_color
     text_color: app.theme_cls.text_color
@@ -65,15 +66,14 @@ Builder.load_string(
 
         AKBottomNavigation:
             items: root.bottomnavigation_items
-'''
+"""
 )
 
 
 class BottomNavigation(Screen):
 
     bottomnavigation_items = [
-        {'icon': 'android', 'text': 'android', 'on_release': lambda x: None},
-        {'icon': 'menu', 'text': 'menu', 'on_release': lambda x: None},
-        {'icon': 'account', 'text': 'account', 'on_release': lambda x: None},
-
+        {"icon": "android", "text": "android", "on_release": lambda x: None},
+        {"icon": "menu", "text": "menu", "on_release": lambda x: None},
+        {"icon": "account", "text": "account", "on_release": lambda x: None},
     ]

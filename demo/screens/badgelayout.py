@@ -1,8 +1,10 @@
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
+
 from akivymd.uix.badgelayout import AKBadgeLayout
+
 Builder.load_string(
-    '''
+    """
 <MyAKBadgeLayout@AKBadgeLayout>
     pos_hint: {'center_x': .5, 'center_y': .5}
     badgeitem_padding: dp(5)
@@ -71,7 +73,7 @@ Builder.load_string(
 
             Widget:
 
-'''
+"""
 )
 
 

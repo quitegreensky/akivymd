@@ -1,8 +1,8 @@
-
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
 
-Builder.load_string("""
+Builder.load_string(
+    """
 <Navigationrail>:
     name: 'Navigationrail'
 
@@ -59,7 +59,7 @@ Builder.load_string("""
                         text: 'Profile'
                         halign: 'center'
 """
-                    )
+)
 
 
 class Navigationrail(Screen):

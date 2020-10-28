@@ -1,6 +1,11 @@
-from akivymd.uix.silverappbar import AKSilverAppbar, AKSilverAppbarContent, AKSilverAppbarHeader
 from kivy.lang.builder import Builder
 from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.silverappbar import (
+    AKSilverAppbar,
+    AKSilverAppbarContent,
+    AKSilverAppbarHeader,
+)
 from kivymd.uix.list import OneLineListItem
 
 Builder.load_string(
@@ -37,11 +42,10 @@ Builder.load_string(
 
 
 class SilverAppbar(Screen):
-
     def on_enter(self, *args):
 
         for x in range(30):
-            self.ids.content.add_widget(OneLineListItem(text='Item %d' % x))
+            self.ids.content.add_widget(OneLineListItem(text="Item %d" % x))
 
     def on_leave(self, *args):
         self.ids.content.clear_widgets()

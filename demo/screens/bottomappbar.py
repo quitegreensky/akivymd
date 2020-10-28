@@ -1,6 +1,11 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.bottomappbar import AKFloatingRoundedAppbar, AKFloatingRoundedAppbarAvatarItem, AKFloatingRoundedAppbarButtonItem
 from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.bottomappbar import (
+    AKFloatingRoundedAppbar,
+    AKFloatingRoundedAppbarAvatarItem,
+    AKFloatingRoundedAppbarButtonItem,
+)
 from kivymd.toast import toast
 
 Builder.load_string(
@@ -43,6 +48,5 @@ Builder.load_string(
 
 
 class BottomAppbar(Screen):
-
     def toast(self, x):
         return toast(x)

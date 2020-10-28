@@ -1,11 +1,16 @@
-from kivy.uix.boxlayout import BoxLayout
-from kivy.lang.builder import Builder
-from kivy.properties import ListProperty, StringProperty, NumericProperty, BooleanProperty
-from kivy.uix.behaviors import ButtonBehavior
 from kivy.clock import Clock
+from kivy.lang.builder import Builder
+from kivy.properties import (
+    BooleanProperty,
+    ListProperty,
+    NumericProperty,
+    StringProperty,
+)
+from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.boxlayout import BoxLayout
 
-from kivymd.uix.behaviors import MagicBehavior
 from kivymd.theming import ThemableBehavior
+from kivymd.uix.behaviors import MagicBehavior
 
 Builder.load_string(
     """
@@ -81,8 +86,8 @@ Builder.load_string(
 
 
 class AKFloatingRoundedAppbarItemBase(
-        ThemableBehavior, ButtonBehavior, MagicBehavior, BoxLayout):
-
+    ThemableBehavior, ButtonBehavior, MagicBehavior, BoxLayout
+):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_once(lambda x: self._update())

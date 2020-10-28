@@ -1,10 +1,16 @@
-from kivy.lang.builder import Builder
-from kivy.uix.boxlayout import BoxLayout
-from kivymd.theming import ThemableBehavior
-from kivy.properties import ListProperty, StringProperty, NumericProperty, BooleanProperty
-from kivy.clock import Clock
 from kivy.animation import Animation
+from kivy.clock import Clock
+from kivy.lang.builder import Builder
+from kivy.properties import (
+    BooleanProperty,
+    ListProperty,
+    NumericProperty,
+    StringProperty,
+)
 from kivy.uix.behaviors import ButtonBehavior
+from kivy.uix.boxlayout import BoxLayout
+
+from kivymd.theming import ThemableBehavior
 from kivymd.uix.behaviors import RectangularRippleBehavior
 
 Builder.load_string(
@@ -97,11 +103,12 @@ class AKNavigationrailItemBase(BoxLayout):
 
 
 class AKNavigationrailItem(
-        ThemableBehavior, ButtonBehavior, AKNavigationrailItemBase):
+    ThemableBehavior, ButtonBehavior, AKNavigationrailItemBase
+):
     icon = StringProperty()
     text = StringProperty()
     text_color = ListProperty([0, 0, 0, 0])
-    icon_color = ListProperty([0,0,0,0])
+    icon_color = ListProperty([0, 0, 0, 0])
     active_text_color = ListProperty([0, 0, 0, 0])
     active_icon_color = ListProperty([0, 0, 0, 0])
     active = BooleanProperty(False)
@@ -142,12 +149,12 @@ class AKNavigationrailContent(BoxLayout):
 
 
 class AKNavigationrail(ThemableBehavior, BoxLayout):
-    opening_width = NumericProperty('200dp')
+    opening_width = NumericProperty("200dp")
     navigation_bg_color = ListProperty()
-    item_height = NumericProperty('60dp')
-    item_radius = NumericProperty('100dp')
+    item_height = NumericProperty("60dp")
+    item_radius = NumericProperty("100dp")
     active_color = ListProperty()
-    transition = StringProperty('out_quad')
+    transition = StringProperty("out_quad")
     duration = NumericProperty(0.2)
 
     _ghost_pos_y = NumericProperty(0)
@@ -159,8 +166,8 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Clock.schedule_once(lambda x: self._update())
-        self.register_event_type('on_open')
-        self.register_event_type('on_dismiss')
+        self.register_event_type("on_open")
+        self.register_event_type("on_dismiss")
 
     def _update(self):
         if not self.navigation_bg_color:
@@ -181,12 +188,12 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
             _opening_width=width,
             _item_radius=width / 2,
             duration=self.duration,
-            t=self.transition
+            t=self.transition,
         )
         anim.start(self)
         self._hide_text()
-        self.dispatch('on_dismiss')
-        self._state = 'dismiss'
+        self.dispatch("on_dismiss")
+        self._state = "dismiss"
         return
 
     def on_open(self, *args):
@@ -198,20 +205,19 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
             _opening_width=width,
             _item_radius=self.item_radius,
             duration=self.duration,
-            t=self.transition
+            t=self.transition,
         )
         anim.start(self)
-        self.dispatch('on_open')
+        self.dispatch("on_open")
         self._show_text()
-        self._state = 'open'
+        self._state = "open"
         return
 
     def _set_ghost_pos(self, y, anim):
         if anim:
             anim = Animation(
-                _ghost_pos_y=y,
-                t=self.transition,
-                duration=self.duration)
+                _ghost_pos_y=y, t=self.transition, duration=self.duration
+            )
             anim.start(self)
         else:
             self._ghost_pos_y = y
@@ -222,9 +228,9 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
             return
         Clock.schedule_once(
             lambda x: self.set_current(
-                self._selected,
-                item_index=False,
-                anim=False))
+                self._selected, item_index=False, anim=False
+            )
+        )
         return
 
     def set_current(self, index, item_index=True, anim=True):
@@ -247,9 +253,10 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
 
     def get_item_children(self):
         children = [
-            item for item in self.ids.items_box.children if issubclass(
-                item.__class__,
-                AKNavigationrailItem)]
+            item
+            for item in self.ids.items_box.children
+            if issubclass(item.__class__, AKNavigationrailItem)
+        ]
         return children
 
     def get_all_children(self):
@@ -279,7 +286,8 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
             anim = Animation(
                 item_text_opacity=0,
                 duration=self.duration / 2,
-                t=self.transition)
+                t=self.transition,
+            )
             anim.start(item)
 
     def _show_text(self):
@@ -287,5 +295,6 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
             anim = Animation(
                 item_text_opacity=1,
                 duration=self.duration / 2,
-                t=self.transition)
+                t=self.transition,
+            )
             anim.start(item)

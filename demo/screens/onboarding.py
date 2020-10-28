@@ -1,6 +1,7 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.onboarding import AKOnboarding, AKOnboardingItem
 from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.onboarding import AKOnboarding, AKOnboardingItem
 from kivymd.toast import toast
 
 Builder.load_string(
@@ -81,6 +82,5 @@ Builder.load_string(
 
 
 class Onboarding(Screen):
-
     def finish_callback(self):
-        toast('Finish callback')
+        toast("Finish callback")

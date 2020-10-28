@@ -1,8 +1,15 @@
-from akivymd.uix.spinners import AKSpinnerCircleFlip, AKSpinnerDoubleBounce, AKSpinnerFoldingCube, AKSpinnerThreeDots
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.spinners import (
+    AKSpinnerCircleFlip,
+    AKSpinnerDoubleBounce,
+    AKSpinnerFoldingCube,
+    AKSpinnerThreeDots,
+)
+
 Builder.load_string(
-    '''
+    """
 <SpinnerBox@MDBoxLayout>:
     adaptive_height: True
     text: ''
@@ -62,12 +69,11 @@ Builder.load_string(
             text: 'Stop'
             on_release:
                 root.stop_animation()
-'''
+"""
 )
 
 
 class Spinners(Screen):
-
     def stop_animation(self):
         ids = self.ids
         ids.foldingcube.active = False

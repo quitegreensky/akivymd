@@ -1,14 +1,20 @@
-from kivy.lang import Builder
-from kivy.uix.carousel import Carousel
-from kivymd.uix.dialog import BaseDialog
-from kivymd.theming import ThemableBehavior
-from kivy.properties import ObjectProperty, NumericProperty, StringProperty, BooleanProperty
-from kivy.uix.scatter import Scatter
 from kivy.animation import Animation
+from kivy.lang import Builder
 from kivy.metrics import dp
+from kivy.properties import (
+    BooleanProperty,
+    NumericProperty,
+    ObjectProperty,
+    StringProperty,
+)
+from kivy.uix.carousel import Carousel
+from kivy.uix.scatter import Scatter
+
+from kivymd.theming import ThemableBehavior
+from kivymd.uix.dialog import BaseDialog
 
 Builder.load_string(
-    '''
+    """
 <Navigation_button@MDIconButton>
     theme_text_color: "Custom"
     text_color: 1,1,1,1
@@ -53,14 +59,14 @@ Builder.load_string(
             scroll_distance: dp(9999)
             min_move: 0
 
-    '''
+    """
 )
 
 
 class AKImageViewerItem(Scatter):
     zoom_max = NumericProperty(2)
     bounce_duration = NumericProperty(0.3)
-    bounce_animation = StringProperty('out_cubic')
+    bounce_animation = StringProperty("out_cubic")
     source = StringProperty()
 
     def __init__(self, **kwargs):
@@ -106,23 +112,22 @@ class AKImageViewerItem(Scatter):
         max_zoom_anim = Animation(
             scale=self.zoom_max,
             duration=self.bounce_duration,
-            t=self.bounce_animation)
+            t=self.bounce_animation,
+        )
         max_zoom_anim.start(self)
 
     def reset_position(self):
         position_anim = Animation(
-            pos=(
-                0,
-                0),
-            duration=self.bounce_duration,
-            t=self.bounce_animation)
+            pos=(0, 0), duration=self.bounce_duration, t=self.bounce_animation
+        )
         position_anim.start(self)
 
     def reset_min_zoom(self):
         min_zoom_anim = Animation(
             scale=self.zoom_min,
             duration=self.bounce_duration,
-            t=self.bounce_animation)
+            t=self.bounce_animation,
+        )
         min_zoom_anim.start(self)
         self.reset_position()
 
@@ -140,7 +145,7 @@ class AKImageViewer(BaseDialog):
         if self.carousel.current_slide == self.carousel.slides[-1]:
             self.carousel.load_slide(self.carousel.slides[0])
         else:
-            self.carousel.load_next(mode='next')
+            self.carousel.load_next(mode="next")
 
     def on_dismiss(self):
         self.carousel.load_slide(self.carousel.slides[0])

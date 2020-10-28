@@ -1,6 +1,7 @@
 from kivy.lang.builder import Builder
-from akivymd.uix.statusbarcolor import change_statusbar_color
 from kivy.uix.screenmanager import Screen
+
+from akivymd.uix.statusbarcolor import change_statusbar_color
 
 Builder.load_string(
     """
@@ -43,6 +44,5 @@ Builder.load_string(
 
 
 class StatusbarColor(Screen):
-
     def change_color(self, color, mode):
         return change_statusbar_color(color, mode)
