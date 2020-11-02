@@ -58,7 +58,7 @@ Builder.load_string(
     MDIcon:
         icon: root.icon
         theme_text_color: "Custom"
-        text_color : root.text_color
+        text_color : root.text_color if root.text_color else None
         font_size: root.font_size
         halign: "center"
         valign: "center"
