@@ -162,6 +162,7 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
     _opening_width = NumericProperty()
     _item_radius = NumericProperty()
     _state = None
+    State = "close"
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -174,10 +175,37 @@ class AKNavigationrail(ThemableBehavior, BoxLayout):
             self.navigation_bg_color = self.theme_cls.primary_color
         self._opening_width = self.opening_width
         self._item_radius = self.item_radius
-        self.open()
+        self.set_state()
 
     def get_state(self):
         return self._state
+
+    def set_state(self):
+        if self.state == "open":
+            self.open()
+        elif self.state == "close":
+            self.dismiss()
+        """
+         
+        Sample usage
+
+        AKNavigationrail:
+        id: rail
+        state: "open"
+        #state defaults to "close"
+
+        AKNavigationrailCustomItem:
+            size_hint_y: None
+            height: dp(60)
+            padding: dp(5)
+            MDIconButton:
+                icon: "menu"
+                theme_text_color: 'Custom'
+                text_color: 1,1,1,1
+                on_release:
+                	if rail.get_state()=='open': rail.dismiss(); self.icon='menu'
+                        else: rail.open(); self.icon='arrow-left'
+        """
 
     def on_dismiss(self, *args):
         pass
