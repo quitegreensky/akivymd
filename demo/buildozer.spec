@@ -37,6 +37,7 @@ version = 1.0.0
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 requirements =  kivy==ede9bd1b806619dda022ab438964ce1b48645521 ,kivymd, git+https://github.com/quitegreensky/akivymd.git
+, kivymd_extensions.akivymd, pygments, webbrowser
 
 # (str) The directory in which python-for-android should look for your own build recipes (if any)
 
